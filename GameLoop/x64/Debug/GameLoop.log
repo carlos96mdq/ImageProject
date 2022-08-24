@@ -1,1 +1,18 @@
-﻿  GameLoop.vcxproj -> C:\Users\User\Documents\VS\CursoCpp\ImageProject\x64\Debug\GameLoop.exe
+﻿  Enemy.cpp
+  Entity.cpp
+  EntityManager.cpp
+C:\Users\User\Documents\VS\CursoCpp\ImageProject\GameLoop\EntityManager.cpp(36,61): warning C4311: 'reinterpret_cast': pointer truncation from 'Entity *' to 'unsigned int'
+C:\Users\User\Documents\VS\CursoCpp\ImageProject\GameLoop\EntityManager.cpp(36,61): warning C4302: 'reinterpret_cast': truncation from 'Entity *' to 'unsigned int'
+C:\Users\User\Documents\VS\CursoCpp\ImageProject\GameLoop\EntityManager.cpp(60,24): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Game.cpp
+  Main.cpp
+  Movable.cpp
+  PlayerBullet.cpp
+  ResourceManager.cpp
+C:\Users\User\Documents\VS\CursoCpp\ImageProject\GameLoop\ResourceManager.cpp(71,24): warning C4267: 'return': conversion from 'size_t' to 'int', possible loss of data
+  Sprite.cpp
+  Player.cpp
+C:\Users\User\Documents\VS\CursoCpp\ImageProject\GameLoop\Player.cpp(43,18): warning C4244: 'initializing': conversion from 'double' to 'float', possible loss of data
+  Generating Code...
+C:\Users\User\Documents\VS\CursoCpp\ImageProject\GameLoop\EntityManager.cpp(30): warning C4715: 'EntityManager::get_entity': not all control paths return a value
+  GameLoop.vcxproj -> C:\Users\User\Documents\VS\CursoCpp\ImageProject\x64\Debug\GameLoop.exe
