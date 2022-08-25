@@ -198,7 +198,11 @@ void Game::render()
 	{
 		if (entity->is_active())
 		{
-			dynamic_cast<Sprite*>(entity)->draw(&window);
+			Sprite* sprite = dynamic_cast<Sprite*>(entity);
+			if (sprite != nullptr)
+			{
+				sprite->draw(&window);
+			}
 		}
 	}
 	
