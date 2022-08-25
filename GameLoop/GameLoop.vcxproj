@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Enemy.cpp" />
+    <ClCompile Include="EnemyBullet.cpp" />
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game.cpp" />
@@ -138,18 +139,21 @@
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Enemy.h" />
+    <ClInclude Include="EnemyBullet.h" />
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Game.h" />
     <ClInclude Include="Movable.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Shooter.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
   </ItemGroup>

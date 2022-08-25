@@ -4,12 +4,8 @@ Player::Player(sf::Texture* texture)
 {
 	set_texture(*texture);
 	speed = 400;
-
 	type = EntityType::PLAYER;
-	shoot = false;
-	can_shoot = true;
 	shooting_position = sf::Vector2f(sprite.getPosition());
-	shoot_timer = 0;
 	shoot_cooldown = 0.5;
 };
 
@@ -48,7 +44,7 @@ void Player::movement(float deltaTime)
 	movement *= (speed * deltaTime);
 	
 	// Finally make de movement
-	sprite.move(movement.x, movement.y);
+	move(movement.x, movement.y);
 }
 
 // Verify if any key of shooting is being pressed and create a player bullet

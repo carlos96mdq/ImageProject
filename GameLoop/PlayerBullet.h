@@ -1,5 +1,7 @@
 #pragma once
+
 #include "Movable.h"
+
 class PlayerBullet : public Movable
 {
 public:

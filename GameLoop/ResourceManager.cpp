@@ -48,6 +48,7 @@ bool ResourceManager::load_textures()
 	}
 	else
 	{
+		textures.emplace("enemy_bullet_sprite", temp_texture);
 		textures.emplace("player_bullet_sprite", temp_texture);
 	}
 	

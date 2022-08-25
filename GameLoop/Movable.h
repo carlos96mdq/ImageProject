@@ -12,5 +12,6 @@ public:
 	Movable() {};
 	virtual ~Movable() {};
 	void move(float x, float y);
+	void move(sf::Vector2f vector);
 };
 

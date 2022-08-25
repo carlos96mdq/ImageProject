@@ -41,7 +41,6 @@ unsigned int EntityManager::add_entity(Entity* entity)
 
 void EntityManager::remove_entity(unsigned int id)
 {
-	PRINT(EntityManager::get_count())
 	for(auto entity : entities)
 	{
 		unsigned int entity_id = entity->get_id();

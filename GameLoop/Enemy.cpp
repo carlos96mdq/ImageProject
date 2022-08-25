@@ -8,12 +8,14 @@ Enemy::Enemy(sf::Texture* texture)
 	direction = DIRECTIONS[DOWN_RIGHT];
 	movement_state = 0;
 	movement_timer = 0;
+	shooting_position = sf::Vector2f(sprite.getPosition());
+	shoot_cooldown = 0.5;
 }
 
 // Move enemy in a patron
 void Enemy::movement(float deltaTime)
 {
-	sprite.move(direction * speed * deltaTime);
+	move(direction * speed * deltaTime);
 }
 
 // Enemy shoots bullets in a patron
@@ -26,7 +28,6 @@ void Enemy::shooting()
 void Enemy::timers(float deltaTime)
 {
 	movement_timer += deltaTime;
-
 	switch (movement_state)
 	{
 		case 0:
@@ -72,6 +73,18 @@ void Enemy::timers(float deltaTime)
 		default:
 			movement_state = 0;
 			break;
+	}
+	
+	if (can_shoot)
+	{
+		shoot_timer += deltaTime;
+		if (shoot_timer >= shoot_cooldown)
+		{
+			shoot = true;
+			shoot_timer = 0;
+			sf::FloatRect rect = sprite.getGlobalBounds();
+			shooting_position = sf::Vector2f(rect.left + rect.width / 2, rect.top + rect.height);
+		}
 	}
 }
 

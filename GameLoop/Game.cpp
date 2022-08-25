@@ -53,16 +53,37 @@ void Game::shooting_events()
 
 	for (Entity* const& entity: EntityManager::get_entities())
 	{
-		if (entity->is_active() && entity->get_type() == EntityType::PLAYER)
+		if (entity->is_active())
 		{
-			Player* player = dynamic_cast<Player*>(entity);
-
-			if (player != nullptr && player->is_shooting())
+			switch (entity->get_type())
 			{
-				player->already_shot();
-				unsigned int bullet = entity_manager->add_entity(new PlayerBullet(resource_manager->get_texture("player_bullet_sprite")));
-				dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(player->get_shooting_position());
+				case EntityType::PLAYER:
+				{
+					Shooter* player = dynamic_cast<Shooter*>(entity);
+					
+					if (player != nullptr && player->is_shooting())
+					{
+						player->already_shot();
+						unsigned int bullet = entity_manager->add_entity(new PlayerBullet(resource_manager->get_texture("player_bullet_sprite")));
+						dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(player->get_shooting_position());
+					}
+					break;
+				}
+
+				case EntityType::ENEMY:
+				{
+					Shooter* enemy = dynamic_cast<Shooter*>(entity);
+
+					if (enemy != nullptr && enemy->is_shooting())
+					{
+						enemy->already_shot();
+						unsigned int bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("enemy_bullet_sprite")));
+						dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position());
+					}
+					break;
+				}
 			}
+
 		}
 	}
 }
@@ -103,7 +124,7 @@ void Game::collisions()
 						}
 					}
 				}
-				
+				break;
 			}
 			
 			// Check enemy collisions
@@ -150,6 +171,7 @@ void Game::collisions()
 					if (player_bullet->get_sprite().getGlobalBounds().top < 0)
 					{
 						entity->kill_entity();
+						PRINT("Me fui")
 					}
 
 					// Check bullet collision with other entities
@@ -157,6 +179,34 @@ void Game::collisions()
 					for (Entity* const& col_entity : entities)
 					{
 						if	(col_entity->get_type() == EntityType::ENEMY
+							&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+						{
+							entity->kill_entity();
+							PRINT("Me mori")
+						}
+					}
+				}
+				break;
+			}
+
+			// Check player bullets collisions
+			case EntityType::ENEMY_BULLET:
+			{
+				EnemyBullet* enemy_bullet = dynamic_cast<EnemyBullet*>(entity);
+				if (enemy_bullet != nullptr)
+				{
+					// Check if bullet get out of screen
+					if (enemy_bullet->get_sprite().getGlobalBounds().top > WINDOW_HEIGHT)
+					{
+						entity->kill_entity();
+						PRINT("Me fui")
+					}
+
+					// Check bullet collision with other entities
+					sf::FloatRect my_rect = enemy_bullet->get_sprite().getGlobalBounds();
+					for (Entity* const& col_entity : entities)
+					{
+						if	(col_entity->get_type() == EntityType::PLAYER
 							&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
 						{
 							entity->kill_entity();

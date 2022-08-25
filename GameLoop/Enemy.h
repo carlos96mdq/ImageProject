@@ -1,8 +1,9 @@
 #pragma once
 
 #include "Movable.h"
+#include "Shooter.h"
 
-class Enemy : public Movable
+class Enemy : public Movable, public Shooter
 {
 private:
 	sf::Vector2f direction;

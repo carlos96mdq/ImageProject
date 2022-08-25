@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "PlayerBullet.h"
 #include "Enemy.h"
+#include "EnemyBullet.h"
 
 #define PRINT(x) std::cout << x << std::endl;
 
