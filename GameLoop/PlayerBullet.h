@@ -7,6 +7,6 @@ class PlayerBullet : public Movable
 public:
 	PlayerBullet(sf::Texture* texture);
 	virtual ~PlayerBullet() {};
-	virtual void update(float deltaTime) override;
+	virtual void update(float delta_time) override;
 };
 

@@ -9,11 +9,11 @@ private:
 	sf::Vector2f direction;
 	unsigned int movement_state;
 	float movement_timer;
-	void movement(float deltaTime);
+	void movement(float delta_time);
 	void shooting();
-	void timers(float deltaTime);
+	void timers(float delta_time);
 public:
-	Enemy(sf::Texture* texture);
+	Enemy(sf::Texture* texture, sf::Vector2f* position);
 	virtual ~Enemy() {};
-	virtual void update(float deltaTime) override;
+	virtual void update(float delta_time) override;
 };

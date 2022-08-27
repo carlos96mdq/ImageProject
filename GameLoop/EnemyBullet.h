@@ -7,6 +7,5 @@ class EnemyBullet : public Movable
 public:
 	EnemyBullet(sf::Texture* texture);
 	virtual ~EnemyBullet() {};
-	virtual void update(float deltaTime) override;
+	virtual void update(float delta_time) override;
 };
-

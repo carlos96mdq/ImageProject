@@ -14,7 +14,7 @@ protected:
 	bool active;
 	bool alive;
 public:
-	Entity() { id = 0; type = EntityType::NORMAL; active = true; alive = true;};
+	Entity() { id = 0; type = EntityType::NORMAL; active = false; alive = true;};
 	virtual ~Entity() {};
 	void assign_id(unsigned int new_id) {id = new_id;};
 	void active_entity(bool is_active) {active = is_active;};

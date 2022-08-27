@@ -2,7 +2,7 @@
 
 #include <iostream>
 #include <unordered_map>
-#include <SFML/Graphics.hpp>
+#include "Constants.h"
 
 class ResourceManager
 {

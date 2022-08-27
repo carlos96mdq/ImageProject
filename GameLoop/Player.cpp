@@ -2,6 +2,7 @@
 
 Player::Player(sf::Texture* texture)
 {
+	active = true;
 	set_texture(*texture);
 	speed = 400;
 	type = EntityType::PLAYER;
@@ -10,7 +11,7 @@ Player::Player(sf::Texture* texture)
 };
 
 // Verify if any key of movement is being pressed and move the player accordingly
-void Player::movement(float deltaTime)
+void Player::movement(float delta_time)
 {
 	sf::Vector2f movement;
 	sf::FloatRect player_rect = sprite.getGlobalBounds();
@@ -41,7 +42,7 @@ void Player::movement(float deltaTime)
 	}
 	
 	// Multiply magnitud for speed and time factor to get the final movement value
-	movement *= (speed * deltaTime);
+	movement *= (speed * delta_time);
 	
 	// Finally make de movement
 	move(movement.x, movement.y);
@@ -61,11 +62,11 @@ void Player::shooting()
 }
 
 // Increase active timers and handle timers events. All times are measured in seconds
-void Player::timers(float deltaTime)
+void Player::timers(float delta_time)
 {
 	if (!can_shoot)
 	{
-		shoot_timer += deltaTime;
+		shoot_timer += delta_time;
 		if (shoot_timer >= shoot_cooldown)
 		{
 			can_shoot = true;
@@ -74,9 +75,9 @@ void Player::timers(float deltaTime)
 	}
 }
 
-void Player::update(float deltaTime)
+void Player::update(float delta_time)
 {
-	movement(deltaTime);
+	movement(delta_time);
 	shooting();
-	timers(deltaTime);
+	timers(delta_time);
 }

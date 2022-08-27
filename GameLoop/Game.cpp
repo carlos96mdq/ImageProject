@@ -29,18 +29,22 @@ void Game::process_input()
 	}
 }
 
-// Update all entities, including player and enemies
-void Game::update(float deltaTime)
+// Update all entities and managers, including player and enemies
+void Game::update(float delta_time)
 {
 	// PRINT("Game::update");
 
+	// Update all entities
 	for (Entity* const& entity: EntityManager::get_entities())
 	{
 		if (entity->is_active())
 		{
-			entity->update(deltaTime);
+			entity->update(delta_time);
 		}
 	}
+
+	// Update SpawnManager timers and events
+	SpawnManager::get_instance()->update(delta_time);
 }
 
 // Check if any entity has shot a bullet and create that bullet entity
@@ -89,7 +93,7 @@ void Game::shooting_events()
 }
 
 // Check all the important collisions and handle the results
-void Game::collisions()
+void Game::collision_events()
 {
 	// PRINT("Game::collisions");
 	
@@ -223,6 +227,33 @@ void Game::collisions()
 	}
 }
 
+// Check the spawn manager for new enemies
+void Game::spawning_events()
+{
+	EntityManager* entity_manager = EntityManager::get_instance();
+	ResourceManager* resource_manager = ResourceManager::get_instance();
+	SpawnManager* spawn_manager = SpawnManager::get_instance();
+	std::queue<sf::Vector2f*> enemies_to_spawn = SpawnManager::get_enemies();
+
+	if (spawn_manager->get_enemy_spawner_flag())
+	{
+		PRINT("Enemigo spawneado")
+		spawn_manager->enemy_already_spawned();
+
+		// WHile there are enemies to spawn, spawn them
+		while (!enemies_to_spawn.empty())
+		{
+			PRINT("SPAWN")
+			entity_manager->add_entity(new Enemy(resource_manager->get_texture("enemy_sprite"), enemies_to_spawn.front()));
+			enemies_to_spawn.pop();
+		}
+
+		// As the enemies_to_spawn is a copy, the true queue needs to be clean
+		spawn_manager->clear_enemies();
+	}
+	
+}
+
 // Destroy all entities that are marked to be destroyed
 void Game::destroyer()
 {
@@ -270,7 +301,7 @@ void Game::init()
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
 	resource_manager->load_textures();
 	unsigned int player = entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite")));
-	entity_manager->add_entity(new Enemy(resource_manager->get_texture("enemy_sprite")));
+	// entity_manager->add_entity(new Enemy(resource_manager->get_texture("enemy_sprite")));
 	
 	dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(800 / 2, 600 / 2);
 }
@@ -285,11 +316,12 @@ void Game::loop()
 	// Verify if the game window still running and ejecute all the fram verifications and updates
 	while (window.isOpen())
 	{
-		sf::Time deltaTime = clock.restart();
+		sf::Time delta_time = clock.restart();
 		process_input();
-		update(deltaTime.asSeconds());
+		update(delta_time.asSeconds());
 		shooting_events();
-		collisions();
+		collision_events();
+		spawning_events();
 		destroyer();
 		render();
 	}

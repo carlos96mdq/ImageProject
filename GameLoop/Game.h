@@ -2,10 +2,10 @@
 
 #include <iostream>
 #include <list>
-#include <SFML/Graphics.hpp>
 #include "Constants.h"
 #include "EntityManager.h"
 #include "ResourceManager.h"
+#include "SpawnManager.h"
 #include "Player.h"
 #include "PlayerBullet.h"
 #include "Enemy.h"
@@ -18,9 +18,10 @@ class Game
 private:
 	sf::RenderWindow window;
 	void process_input();
-	void update(float deltaTime);
+	void update(float delta_time);
 	void shooting_events();
-	void collisions();
+	void collision_events();
+	void spawning_events();
 	void destroyer();
 	void render();
 public:

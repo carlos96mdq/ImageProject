@@ -1,8 +1,10 @@
 #include "Enemy.h"
 
-Enemy::Enemy(sf::Texture* texture)
+Enemy::Enemy(sf::Texture* texture, sf::Vector2f* position)
 {
+	active = true;
 	set_texture(*texture);
+	set_position(*position);
 	speed = 100;
 	type = EntityType::ENEMY;
 	direction = DIRECTIONS[DOWN_RIGHT];
@@ -13,9 +15,9 @@ Enemy::Enemy(sf::Texture* texture)
 }
 
 // Move enemy in a patron
-void Enemy::movement(float deltaTime)
+void Enemy::movement(float delta_time)
 {
-	move(direction * speed * deltaTime);
+	move(direction * speed * delta_time);
 }
 
 // Enemy shoots bullets in a patron
@@ -25,9 +27,9 @@ void Enemy::shooting()
 }
 
 // Increase active timers and handle timers events. All times are measured in seconds
-void Enemy::timers(float deltaTime)
+void Enemy::timers(float delta_time)
 {
-	movement_timer += deltaTime;
+	movement_timer += delta_time;
 	switch (movement_state)
 	{
 		case 0:
@@ -77,7 +79,7 @@ void Enemy::timers(float deltaTime)
 	
 	if (can_shoot)
 	{
-		shoot_timer += deltaTime;
+		shoot_timer += delta_time;
 		if (shoot_timer >= shoot_cooldown)
 		{
 			shoot = true;
@@ -88,9 +90,9 @@ void Enemy::timers(float deltaTime)
 	}
 }
 
-void Enemy::update(float deltaTime)
+void Enemy::update(float delta_time)
 {
-	movement(deltaTime);
+	movement(delta_time);
 	shooting();
-	timers(deltaTime);
+	timers(delta_time);
 }
