@@ -17,7 +17,7 @@ protected:
 	std::vector<sf::IntRect*> sprites;
 public:
 	Sprite() {};
-	virtual ~Sprite() {};
+	virtual ~Sprite();
 	void draw(sf::RenderWindow* window);
 	void set_texture(const sf::Texture &texture);
 	void set_position(sf::Vector2f new_position);

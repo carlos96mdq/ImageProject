@@ -8,10 +8,8 @@
 #include "SpawnManager.h"
 #include "Player.h"
 #include "PlayerBullet.h"
-#include "Enemy.h"
+#include "Pidgey.h"
 #include "EnemyBullet.h"
-
-#define PRINT(x) std::cout << x << std::endl;
 
 class Game
 {

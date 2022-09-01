@@ -233,7 +233,7 @@ void Game::spawning_events()
 	EntityManager* entity_manager = EntityManager::get_instance();
 	ResourceManager* resource_manager = ResourceManager::get_instance();
 	SpawnManager* spawn_manager = SpawnManager::get_instance();
-	std::queue<sf::Vector2f*> enemies_to_spawn = SpawnManager::get_enemies();
+	std::queue<NewEnemyData*> enemies_to_spawn = SpawnManager::get_enemies();
 
 	if (spawn_manager->get_enemy_spawner_flag())
 	{
@@ -244,14 +244,23 @@ void Game::spawning_events()
 		while (!enemies_to_spawn.empty())
 		{
 			PRINT("SPAWN")
-			entity_manager->add_entity(new Enemy(resource_manager->get_texture("enemy_sprite"), enemies_to_spawn.front()));
+			unsigned int enemy_type = enemies_to_spawn.front()->type;
+			switch (enemy_type)
+			{
+			case PIDGEY:
+				{
+					entity_manager->add_entity(new Pidgey(resource_manager->get_texture("pidgey_sprite"), enemies_to_spawn.front()->position));
+				}
+				break;
+			
+			default:
+				break;
+			}
 			enemies_to_spawn.pop();
 		}
-
 		// As the enemies_to_spawn is a copy, the true queue needs to be clean
 		spawn_manager->clear_enemies();
 	}
-	
 }
 
 // Destroy all entities that are marked to be destroyed

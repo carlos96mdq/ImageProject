@@ -5,20 +5,18 @@
 
 class Enemy : public Movable, public Shooter
 {
-private:
+protected:
 	sf::Vector2f direction;
 	unsigned int enemy_type;
 	unsigned int state;
 	float state_timer;
-	unsigned int sprite_index;
 	unsigned int pattern;
 	void set_sprite(sf::Texture* texture);
-	void movement(float delta_time);
-	void sprite_frame();
-	void shooting();
-	void timers(float delta_time);
+	virtual void movement(float delta_time)=0;
+	virtual void sprite_frame()=0;
+	virtual void shooting()=0;
+	virtual void timers(float delta_time)=0;
 public:
 	Enemy(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern=0);
 	virtual ~Enemy() {};
-	virtual void update(float delta_time) override;
 };

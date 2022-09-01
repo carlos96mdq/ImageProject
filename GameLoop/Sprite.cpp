@@ -1,5 +1,14 @@
 #include "Sprite.h"
 
+Sprite::~Sprite()
+{
+	// Free heap memory
+	for (auto &&sprite : sprites)
+	{
+		delete sprite;
+	}
+}
+
 void Sprite::draw(sf::RenderWindow* window)
 {
 	window->draw(sprite);

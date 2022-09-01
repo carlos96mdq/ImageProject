@@ -60,7 +60,7 @@ bool ResourceManager::load_textures()
 	}
 	else
 	{
-		textures.emplace("enemy_sprite", temp_texture);
+		textures.emplace("pidgey_sprite", temp_texture);
 	}
 	
 	temp_texture = nullptr;
