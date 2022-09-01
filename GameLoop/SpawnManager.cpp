@@ -18,18 +18,18 @@ std::queue<sf::Vector2f*> SpawnManager::get_enemies()
 }
 
 SpawnManager::SpawnManager()
-: enemy_spawn_timer(0.0), enemy_spawn_event(0), enemy_spawner_flag(false)
+:	enemy_spawn_timer(0.0), enemy_spawner_flag(false), enemy_spawn_index(0),
+	level_enemy_secuence{0, 1}
 {}
 
 void SpawnManager::enemy_spawner()
 {
-	switch (enemy_spawn_event)
+	switch (level_enemy_secuence[enemy_spawn_index])
 	{
 		case 0:
 			if (enemy_spawn_timer >= 2.0)
 			{
 				enemy_spawner_flag = true;
-				std::cout << "Modo 1" << std::endl;
 				enemies_to_spawn.push(new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.8, 10));
 			}
 			break;
@@ -38,7 +38,6 @@ void SpawnManager::enemy_spawner()
 			if (enemy_spawn_timer >= 3.0)
 			{
 				enemy_spawner_flag = true;
-				std::cout << "Modo 0" << std::endl;
 				enemies_to_spawn.push(new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.5, 10));
 			}
 			break;
@@ -50,10 +49,10 @@ void SpawnManager::enemy_spawner()
 	if (enemy_spawner_flag)
 	{
 		enemy_spawn_timer = 0.0;
-		enemy_spawn_event++;
-		if (enemy_spawn_event >= 2)
+		enemy_spawn_index++;
+		if (enemy_spawn_index >= 2)
 		{
-			enemy_spawn_event = 0;
+			enemy_spawn_index = 0;
 		}
 	}
 	

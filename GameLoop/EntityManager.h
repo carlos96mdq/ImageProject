@@ -1,6 +1,5 @@
 #pragma once
 
-#include <list>
 #include "Constants.h"
 #include "Entity.h"
 

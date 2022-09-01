@@ -3,12 +3,28 @@
 Player::Player(sf::Texture* texture)
 {
 	active = true;
-	set_texture(*texture);
 	speed = 400;
 	type = EntityType::PLAYER;
 	shooting_position = sf::Vector2f(sprite.getPosition());
 	shoot_cooldown = 0.5;
+	set_sprite(texture);
 };
+
+// Set the spritesheet and the current sprite
+void Player::set_sprite(sf::Texture* texture)
+{
+	change_sprite = false;
+	sprite_scale_factor = 0.1;
+	sprite_refresh_period = 0.3;
+	sprite_quantities = 2;
+	set_texture(*texture);
+	set_scale(sprite_scale_factor);
+	sf::IntRect sprite_sheet(get_sprite_sheet_rect());
+	sprites.push_back(new sf::IntRect(sprite_sheet.left, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
+	sprites.push_back(new sf::IntRect(sprite_sheet.left + sprite_sheet.width / 2, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
+	sprite_index = 0;
+	set_current_sprite(*sprites[sprite_index]);
+}
 
 // Verify if any key of movement is being pressed and move the player accordingly
 void Player::movement(float delta_time)
@@ -48,11 +64,27 @@ void Player::movement(float delta_time)
 	move(movement.x, movement.y);
 }
 
+// Check the sprite time to change the current sprite and give a movement effect
+void Player::sprite_frame()
+{
+	if (change_sprite)
+	{
+		std::cout << "Sprite changed" << std::endl;
+		sprite_index++;
+		if (sprite_index >= sprite_quantities)
+		{
+			sprite_index = 0;
+		}
+		set_current_sprite(*sprites[sprite_index]);
+		change_sprite = false;
+	}
+}
+
 // Verify if any key of shooting is being pressed and create a player bullet
 void Player::shooting()
 {
 	// Get movement input key only if the player can move in that direction
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::K) && can_shoot)
+	if (can_shoot && sf::Keyboard::isKeyPressed(sf::Keyboard::K))
 	{
 		shoot = true;
 		can_shoot = false;
@@ -70,14 +102,23 @@ void Player::timers(float delta_time)
 		if (shoot_timer >= shoot_cooldown)
 		{
 			can_shoot = true;
-			shoot_timer = 0;
+			shoot_timer = 0.0;
 		}
 	}
+
+	sprite_timer += delta_time;
+	if (sprite_timer >= sprite_refresh_period)
+	{
+		change_sprite = true;
+		sprite_timer = 0.0;
+	}
+	
 }
 
 void Player::update(float delta_time)
 {
 	movement(delta_time);
+	sprite_frame();
 	shooting();
 	timers(delta_time);
 }

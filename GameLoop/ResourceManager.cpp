@@ -53,7 +53,7 @@ bool ResourceManager::load_textures()
 	}
 	
 	temp_texture = new sf::Texture;
-	if (!temp_texture->loadFromFile("resources/ball.png"))
+	if (!temp_texture->loadFromFile("resources/pidgey_sprites.png"))
 	{
 		std::cout << "ERROR" << std::endl;
 		correct_init = false;

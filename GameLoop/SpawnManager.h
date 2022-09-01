@@ -1,7 +1,5 @@
 #pragma once
 
-#include <queue>
-#include <list>
 #include "Constants.h"
 #include "Entity.h"
 
@@ -12,8 +10,9 @@ private:
 	static std::queue<sf::Vector2f*> enemies_to_spawn;
 	SpawnManager();
 	virtual ~SpawnManager() {};
+	unsigned int level_enemy_secuence[2];
+	unsigned int enemy_spawn_index;
 	float enemy_spawn_timer;
-	unsigned int enemy_spawn_event;
 	bool enemy_spawner_flag;
 	void enemy_spawner();
 	void timers_update(float delta_time);
