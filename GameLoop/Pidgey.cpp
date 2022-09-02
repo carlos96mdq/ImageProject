@@ -2,7 +2,9 @@
 
 Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern)
 : Enemy(texture, position, pattern)
-{}
+{
+	enemy_type = PIDGEY;
+}
 
 // Move enemy in a patron
 void Pidgey::movement(float delta_time)
@@ -28,7 +30,6 @@ void Pidgey::sprite_frame()
 {
 	if (change_sprite)
 	{
-		std::cout << "Sprite changed" << std::endl;
 		if (state == 1)
 		{
 			sprite_index = 2;
@@ -70,7 +71,7 @@ void Pidgey::timers(float delta_time)
 				{
 					case 0:
 					{
-						if (state_timer > 2.0)
+						if (state_timer > 3.0)
 						{
 							state = 1;
 							state_timer = 0;
@@ -117,15 +118,15 @@ void Pidgey::timers(float delta_time)
 			break;
 	}
 	
-	if (!can_shoot)
-	{
-		shoot_timer += delta_time;
-		if (shoot_timer >= shoot_cooldown)
-		{
-			can_shoot = true;
-			shoot_timer = 0.0;
-		}
-	}
+	// if (!can_shoot)
+	// {
+	// 	shoot_timer += delta_time;
+	// 	if (shoot_timer >= shoot_cooldown)
+	// 	{
+	// 		can_shoot = true;
+	// 		shoot_timer = 0.0;
+	// 	}
+	// }
 
 	if (state == 0)
 	{

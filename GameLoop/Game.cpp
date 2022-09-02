@@ -3,7 +3,6 @@
 // Process all players inputs and handle them
 void Game::process_input()
 {
-	// PRINT("Game::process_input");
 
 	// Create the event handler
 	sf::Event event;
@@ -25,14 +24,12 @@ void Game::process_input()
 
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
-		PRINT(EntityManager::get_instance()->get_count())
 	}
 }
 
 // Update all entities and managers, including player and enemies
 void Game::update(float delta_time)
 {
-	// PRINT("Game::update");
 
 	// Update all entities
 	for (Entity* const& entity: EntityManager::get_entities())
@@ -50,7 +47,6 @@ void Game::update(float delta_time)
 // Check if any entity has shot a bullet and create that bullet entity
 void Game::shooting_events()
 {
-	// PRINT("Game::shooting_events");
 
 	EntityManager* entity_manager = EntityManager::get_instance();
 	ResourceManager* resource_manager = ResourceManager::get_instance();
@@ -81,7 +77,7 @@ void Game::shooting_events()
 					if (enemy != nullptr && enemy->is_shooting())
 					{
 						enemy->already_shot();
-						unsigned int bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("enemy_bullet_sprite")));
+						unsigned int bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite")));
 						dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position());
 					}
 					break;
@@ -95,7 +91,6 @@ void Game::shooting_events()
 // Check all the important collisions and handle the results
 void Game::collision_events()
 {
-	// PRINT("Game::collisions");
 	
 	std::list<Entity*> entities = EntityManager::get_entities();
 	EntityManager* entity_manager = EntityManager::get_instance();
@@ -111,20 +106,18 @@ void Game::collision_events()
 				if (player != nullptr)
 				{
 					// Check player collision with other entities
-					sf::FloatRect my_rect = player->get_sprite().getGlobalBounds();
+					sf::FloatRect my_rect = player->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
 						if	(col_entity->get_type() == EntityType::ENEMY_BULLET
-							&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
-							PRINT("Me mori")
 						}
 						else if	(col_entity->get_type() == EntityType::ENEMY
-								&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+								&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
-							PRINT("Me mori")
 						}
 					}
 				}
@@ -138,27 +131,24 @@ void Game::collision_events()
 				if (enemy != nullptr)
 				{
 					// Check if enemy get out of screen
-					if (enemy->get_sprite().getGlobalBounds().top > WINDOW_HEIGHT)
+					if (enemy->get_sprite_rect().top > WINDOW_HEIGHT)
 					{
 						entity->kill_entity();
-						PRINT("Me mori")
 					}
 
 					// Check enemy collision with other entities
-					sf::FloatRect my_rect = enemy->get_sprite().getGlobalBounds();
+					sf::FloatRect my_rect = enemy->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
 						if	(col_entity->get_type() == EntityType::PLAYER_BULLET
-							&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
-							PRINT("Me mori")
 						}
 						else if	(col_entity->get_type() == EntityType::PLAYER
-								&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+								&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
-							PRINT("Me mori")
 						}
 					}
 				}
@@ -172,21 +162,19 @@ void Game::collision_events()
 				if (player_bullet != nullptr)
 				{
 					// Check if bullet get out of screen
-					if (player_bullet->get_sprite().getGlobalBounds().top < 0)
+					if (player_bullet->get_sprite_rect().top < 0)
 					{
 						entity->kill_entity();
-						PRINT("Me fui")
 					}
 
 					// Check bullet collision with other entities
-					sf::FloatRect my_rect = player_bullet->get_sprite().getGlobalBounds();
+					sf::FloatRect my_rect = player_bullet->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
 						if	(col_entity->get_type() == EntityType::ENEMY
-							&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
-							PRINT("Me mori")
 						}
 					}
 				}
@@ -200,21 +188,19 @@ void Game::collision_events()
 				if (enemy_bullet != nullptr)
 				{
 					// Check if bullet get out of screen
-					if (enemy_bullet->get_sprite().getGlobalBounds().top > WINDOW_HEIGHT)
+					if (enemy_bullet->get_sprite_rect().top > WINDOW_HEIGHT || enemy_bullet->get_sprite_rect().top < 0)
 					{
 						entity->kill_entity();
-						PRINT("Me fui")
 					}
 
 					// Check bullet collision with other entities
-					sf::FloatRect my_rect = enemy_bullet->get_sprite().getGlobalBounds();
+					sf::FloatRect my_rect = enemy_bullet->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
 						if	(col_entity->get_type() == EntityType::PLAYER
-							&& dynamic_cast<Sprite*>(col_entity)->get_sprite().getGlobalBounds().intersects(my_rect))
+							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
-							PRINT("Me mori")
 						}
 					}
 				}
@@ -237,13 +223,11 @@ void Game::spawning_events()
 
 	if (spawn_manager->get_enemy_spawner_flag())
 	{
-		PRINT("Enemigo spawneado")
 		spawn_manager->enemy_already_spawned();
 
 		// WHile there are enemies to spawn, spawn them
 		while (!enemies_to_spawn.empty())
 		{
-			PRINT("SPAWN")
 			unsigned int enemy_type = enemies_to_spawn.front()->type;
 			switch (enemy_type)
 			{
@@ -266,7 +250,6 @@ void Game::spawning_events()
 // Destroy all entities that are marked to be destroyed
 void Game::destroyer()
 {
-	// PRINT("Game::destroyer");
 
 	for (Entity* const& entity: EntityManager::get_entities())
 	{
@@ -280,7 +263,6 @@ void Game::destroyer()
 // Draw all objects on window
 void Game::render()
 {
-	// PRINT("Game::render");
 
 	window.clear();
 	
@@ -302,10 +284,12 @@ void Game::render()
 // Initialize game windows and important entities
 void Game::init()
 {
-	PRINT("Game::init");
 
 	ResourceManager* resource_manager = ResourceManager::get_instance();
 	EntityManager* entity_manager = EntityManager::get_instance();
+
+	// Initialize pseudo-randomizer
+	srand(time(0));
 	
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
 	resource_manager->load_textures();
@@ -318,7 +302,6 @@ void Game::init()
 // Main gameloop
 void Game::loop()
 {
-	PRINT("Game::loop");
 	
 	sf::Clock clock;
 	
@@ -339,6 +322,5 @@ void Game::loop()
 // Called when the main gameloop finishes
 void Game::stop()
 {
-	PRINT("Game::stop");
 	EntityManager::get_instance()->clear();
 }

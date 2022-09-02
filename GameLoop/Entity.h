@@ -3,6 +3,7 @@
 #include <iostream>
 #include <SFML/Graphics.hpp>
 #include "Constants.h"
+#include "GlobalMethods.h"
 
 #define PRINT(x) std::cout << x << std::endl;
 

@@ -51,7 +51,6 @@ void EntityManager::remove_entity(unsigned int id)
 			break;
 		}
 	}
-	PRINT(EntityManager::get_count())
 }
 
 int EntityManager::get_count()

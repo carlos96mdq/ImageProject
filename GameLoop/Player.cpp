@@ -13,16 +13,14 @@ Player::Player(sf::Texture* texture)
 // Set the spritesheet and the current sprite
 void Player::set_sprite(sf::Texture* texture)
 {
-	change_sprite = false;
+	Sprite::set_sprite(texture);
 	sprite_scale_factor = 0.1;
 	sprite_refresh_period = 0.3;
 	sprite_quantities = 2;
-	set_texture(*texture);
 	set_scale(sprite_scale_factor);
 	sf::IntRect sprite_sheet(get_sprite_sheet_rect());
 	sprites.push_back(new sf::IntRect(sprite_sheet.left, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
 	sprites.push_back(new sf::IntRect(sprite_sheet.left + sprite_sheet.width / 2, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
-	sprite_index = 0;
 	set_current_sprite(*sprites[sprite_index]);
 }
 
@@ -69,7 +67,6 @@ void Player::sprite_frame()
 {
 	if (change_sprite)
 	{
-		std::cout << "Sprite changed" << std::endl;
 		sprite_index++;
 		if (sprite_index >= sprite_quantities)
 		{

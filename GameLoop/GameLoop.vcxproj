@@ -135,6 +135,7 @@
     <ClCompile Include="Entity.cpp" />
     <ClCompile Include="EntityManager.cpp" />
     <ClCompile Include="Game.cpp" />
+    <ClCompile Include="GlobalMethods.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Movable.cpp" />
     <ClCompile Include="Pidgey.cpp" />
@@ -152,6 +153,7 @@
     <ClInclude Include="Entity.h" />
     <ClInclude Include="EntityManager.h" />
     <ClInclude Include="Game.h" />
+    <ClInclude Include="GlobalMethods.h" />
     <ClInclude Include="Movable.h" />
     <ClInclude Include="Pidgey.h" />
     <ClInclude Include="PlayerBullet.h" />

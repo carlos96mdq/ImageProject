@@ -30,7 +30,9 @@ void SpawnManager::enemy_spawner()
 			if (enemy_spawn_timer >= 2.0)
 			{
 				enemy_spawner_flag = true;
-				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.8, 10)));
+				float ran_factor = (rand() % 45 + 1) / 100.0;
+				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 10)));
+				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 10)));
 			}
 			break;
 		

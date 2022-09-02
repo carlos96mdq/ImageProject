@@ -4,11 +4,12 @@
 #include <queue>
 #include <list>
 #include <iostream>
+#include <time.h>
 
 #define PRINT(x) std::cout << x << std::endl;
 
-const unsigned int WINDOW_WIDTH = 1280;
-const unsigned int WINDOW_HEIGHT = 720;
+const unsigned int WINDOW_WIDTH = 900;
+const unsigned int WINDOW_HEIGHT = 900;
 
 const sf::Vector2f DIRECTIONS[] = {	sf::Vector2f(0,-1), sf::Vector2f(sqrt(0.5),-sqrt(0.5)), sf::Vector2f(1,0),
 									sf::Vector2f(sqrt(0.5),sqrt(0.5)), sf::Vector2f(0,1), sf::Vector2f(-sqrt(0.5),sqrt(0.5)),

@@ -6,7 +6,7 @@
 class Player : public Movable, public Shooter
 {
 private:
-	void set_sprite(sf::Texture* texture);
+	virtual void set_sprite(sf::Texture* texture) override;
 	void movement(float delta_time);
 	void sprite_frame();
 	void shooting();
