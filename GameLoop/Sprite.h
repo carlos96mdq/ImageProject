@@ -26,8 +26,9 @@ public:
 	void set_texture(const sf::Texture &texture);
 	virtual void set_position(sf::Vector2f new_position);
 	void set_current_sprite(const sf::IntRect& new_sprite);
-	const sf::FloatRect get_sprite_rect() const { return sprite.getGlobalBounds();}
+	const sf::FloatRect get_sprite_rect() const { return sprite.getGlobalBounds(); }
 	const sf::Sprite& get_sprite() const { return sprite; };
-	const sf::IntRect& get_sprite_sheet_rect() const {return sprite.getTextureRect();};
+	const sf::IntRect& get_sprite_sheet_rect() const { return sprite.getTextureRect(); };
+	const sf::Vector2f& get_position() const {return sprite.getPosition(); }
 };
 

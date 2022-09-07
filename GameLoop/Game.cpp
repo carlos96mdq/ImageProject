@@ -237,6 +237,12 @@ void Game::spawning_events()
 				}
 				break;
 			
+			case BEEDRILL:
+				{
+					entity_manager->add_entity(new Beedrill(resource_manager->get_texture("beedrill_sprite"), enemies_to_spawn.front()->position));
+				}
+				break;
+			
 			default:
 				break;
 			}

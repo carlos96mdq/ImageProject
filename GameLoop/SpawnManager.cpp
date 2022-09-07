@@ -30,17 +30,21 @@ void SpawnManager::enemy_spawner()
 			if (enemy_spawn_timer >= 2.0)
 			{
 				enemy_spawner_flag = true;
-				float ran_factor = (rand() % 45 + 1) / 100.0;
-				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 10)));
-				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 10)));
+				// float ran_factor = (rand() % 45 + 1) / 100.0;
+				// enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 10)));
+				// enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 10)));
+				// float ran_factor = (rand() % 50 + 1) / 100.0;
+				// PRINT(ran_factor);
+				// enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+				// enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
 			}
 			break;
 		
 		case 1:
-			if (enemy_spawn_timer >= 3.0)
+			if (enemy_spawn_timer >= 1.0)
 			{
 				enemy_spawner_flag = true;
-				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.5, 10)));
+				// enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.5, 10)));
 			}
 			break;
 		

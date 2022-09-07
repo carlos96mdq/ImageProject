@@ -10,8 +10,6 @@ protected:
 	sf::Vector2f direction;
 	unsigned int state;
 	float state_timer;
-	unsigned int pattern;
-	virtual void set_sprite(sf::Texture* texture) override;
 	virtual void movement(float delta_time)=0;
 	virtual void sprite_frame()=0;
 	virtual void shooting()=0;

@@ -9,6 +9,7 @@
 #include "Player.h"
 #include "PlayerBullet.h"
 #include "Pidgey.h"
+#include "Beedrill.h"
 #include "EnemyBullet.h"
 
 class Game

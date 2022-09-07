@@ -67,7 +67,7 @@ void EnemyBullet::movement(float delta_time)
 		}
 		change_direction = false;
 	}
-	// rotate 10 degrees per second
+	// rotate 15 degrees per second
 	MATH::rotate(direction, 15 * angle_orientation * delta_time);
 	move(direction * speed * delta_time);
 }
