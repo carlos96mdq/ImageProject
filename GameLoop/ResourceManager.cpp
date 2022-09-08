@@ -84,6 +84,17 @@ bool ResourceManager::load_textures()
 		textures.emplace("beedrill_sprite", temp_texture);
 	}
 	
+	temp_texture = new sf::Texture;
+	if (!temp_texture->loadFromFile("resources/butterfree_sprite.png"))
+	{
+		std::cout << "ERROR" << std::endl;
+		correct_init = false;
+	}
+	else
+	{
+		textures.emplace("butterfree_sprite", temp_texture);
+	}
+	
 	temp_texture = nullptr;
 	return correct_init;
 }

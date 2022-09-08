@@ -243,6 +243,12 @@ void Game::spawning_events()
 				}
 				break;
 			
+			case BUTTERFREE:
+				{
+					entity_manager->add_entity(new Butterfree(resource_manager->get_texture("butterfree_sprite"), enemies_to_spawn.front()->position));
+				}
+				break;
+			
 			default:
 				break;
 			}

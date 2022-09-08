@@ -10,6 +10,7 @@
 #include "PlayerBullet.h"
 #include "Pidgey.h"
 #include "Beedrill.h"
+#include "Butterfree.h"
 #include "EnemyBullet.h"
 
 class Game

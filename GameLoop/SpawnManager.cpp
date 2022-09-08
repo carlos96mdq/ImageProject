@@ -37,6 +37,10 @@ void SpawnManager::enemy_spawner()
 				// PRINT(ran_factor);
 				// enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
 				// enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
+				float ran_factor = (rand() % 7 + 2) / 10.0;
+				PRINT(ran_factor);
+				enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+				enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
 			}
 			break;
 		

@@ -3,8 +3,11 @@
 Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern)
 : Enemy(texture, position, pattern)
 {
+	PRINT("Pidgey constructor");
 	enemy_type = PIDGEY;
 	speed = 200;
+	change_direction = false;
+	direction = DIRECTIONS[NULL_DIR];
 	set_sprite(texture);
 }
 
@@ -26,18 +29,22 @@ void Pidgey::set_sprite(sf::Texture* texture)
 // Move enemy in a patron
 void Pidgey::movement(float delta_time)
 {
-	switch (state)
+	if (change_direction)
 	{
-		case 0:
-			direction = DIRECTIONS[NULL_DIR];
-			break;
-			
-		case 1:
-			direction = DIRECTIONS[DOWN];
-			break;
+		switch (state)
+		{
+			case 0:
+				direction = DIRECTIONS[NULL_DIR];
+				break;
+				
+			case 1:
+				direction = DIRECTIONS[DOWN];
+				break;
 
-		default:
-			break;
+			default:
+				break;
+		}
+		change_direction = false;
 	}
 	move(direction * speed * delta_time);
 }
@@ -86,6 +93,7 @@ void Pidgey::timers(float delta_time)
 		{
 			state = 1;
 			state_timer = 0;
+			change_direction = true;
 		}
 	}
 	
