@@ -1,5 +1,10 @@
+/***************************************************************************************************************************/
+/* EnemyBullet.cpp
+/***************************************************************************************************************************/
+
 #include "EnemyBullet.h"
 
+// Constructor
 EnemyBullet::EnemyBullet(sf::Texture* texture)
 {
 	active = true;
@@ -16,14 +21,7 @@ EnemyBullet::EnemyBullet(sf::Texture* texture)
 void EnemyBullet::set_sprite(sf::Texture* texture)
 {
 	Sprite::set_sprite(texture);
-	// sprite_scale_factor = 1;
 	sprite_refresh_period = 0.1;
-	// sprite_quantities = 1;
-	// set_scale(sprite_scale_factor);
-	// sf::IntRect sprite_sheet(get_sprite_sheet_rect());
-	// sprites.push_back(new sf::IntRect(sprite_sheet.left, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
-	// sprites.push_back(new sf::IntRect(sprite_sheet.left + sprite_sheet.width / 2, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
-	// set_current_sprite(*sprites[sprite_index]);
 }
 
 // Set a random direction to the bullet
@@ -47,7 +45,7 @@ void EnemyBullet::set_position(sf::Vector2f new_position)
 	}
 }
 
-// Move enemy in a patron
+// Move projectile in a patron
 void EnemyBullet::movement(float delta_time)
 {
 	if (change_direction)
@@ -102,20 +100,9 @@ void EnemyBullet::timers(float delta_time)
 			state_timer = 0;
 		}
 	}
-	
-	// state_timer += delta_time;
-	// switch (state)
-	// {
-	// 	case 0:
-	// 	{
-	// 		break;
-	// 	}
-
-	// 	default:
-	// 		break;
-	// }
 }
 
+// Update
 void EnemyBullet::update(float delta_time)
 {
 	movement(delta_time);

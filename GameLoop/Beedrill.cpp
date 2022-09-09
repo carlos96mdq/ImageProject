@@ -1,5 +1,10 @@
+/***************************************************************************************************************************/
+/* Beedrill.cpp
+/***************************************************************************************************************************/
+
 #include "Beedrill.h"
 
+// Constructor
 Beedrill::Beedrill(sf::Texture* texture, sf::Vector2f* position)
 : Enemy(texture, position)
 {
@@ -86,6 +91,4 @@ void Beedrill::timers(float delta_time)
 void Beedrill::update(float delta_time)
 {
 	movement(delta_time);
-	// sprite_frame();
-	// timers(delta_time);
 }

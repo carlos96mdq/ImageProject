@@ -1,4 +1,8 @@
 #pragma once
+/***************************************************************************************************************************/
+/* Butterfree.h
+/* Enemy derived from Enemy class
+/***************************************************************************************************************************/
 
 #include "Enemy.h"
 
@@ -8,7 +12,6 @@ private:
 	bool change_direction;
 	unsigned int initial_state;
 	std::vector<float> state_times;
-	// float state_times[];
 	virtual void set_sprite(sf::Texture* texture) override;
 	virtual void movement(float delta_time) override;
 	virtual void sprite_frame() override;

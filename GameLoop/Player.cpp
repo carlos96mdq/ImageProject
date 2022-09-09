@@ -1,5 +1,10 @@
+/***************************************************************************************************************************/
+/* Player.cpp
+/***************************************************************************************************************************/
+
 #include "Player.h"
 
+// Constructor
 Player::Player(sf::Texture* texture)
 {
 	active = true;
@@ -112,6 +117,7 @@ void Player::timers(float delta_time)
 	
 }
 
+// Update
 void Player::update(float delta_time)
 {
 	movement(delta_time);
