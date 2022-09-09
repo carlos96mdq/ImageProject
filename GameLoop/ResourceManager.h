@@ -1,3 +1,8 @@
+/***************************************************************************************************************************/
+/* ResourceManager.h
+/* External resources used in game, mainly sprites (.png), are administrated by a ResourceManager (a singleton)
+/***************************************************************************************************************************/
+
 #pragma once
 
 #include <unordered_map>
@@ -13,8 +18,8 @@ private:
 public:
 	static ResourceManager* get_instance();
 	static std::unordered_map<std::string, sf::Texture*> get_textures();
-	sf::Texture* get_texture(std::string texture_name);
 	bool load_textures();
-	int get_count();
+	sf::Texture* get_texture(std::string texture_name) const { return textures.at(texture_name); };
+	const int get_count() const { return textures.size(); };
 	void clear();
 };

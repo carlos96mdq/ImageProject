@@ -11,7 +11,7 @@ private:
 	virtual void shooting() override {};
 	virtual void timers(float delta_time) override;
 public:
-	Beedrill(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern=0);
+	Beedrill(sf::Texture* texture, sf::Vector2f* position);
 	virtual ~Beedrill() {PRINT("Beedrill destrcutor");};
 	virtual void update(float delta_time) override;
 };

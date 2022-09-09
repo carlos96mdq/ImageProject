@@ -1,7 +1,7 @@
 #include "Butterfree.h"
 
-Butterfree::Butterfree(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern)
-: Enemy(texture, position, pattern), state_times{4.0, 2.0, 2.0}
+Butterfree::Butterfree(sf::Texture* texture, sf::Vector2f* position)
+: Enemy(texture, position), state_times{4.0, 2.0, 2.0}
 {
 	PRINT("Butterfree constructor")
 	enemy_type = BUTTERFREE;

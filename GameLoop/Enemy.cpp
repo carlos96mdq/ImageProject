@@ -1,6 +1,6 @@
 #include "Enemy.h"
 
-Enemy::Enemy(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern)
+Enemy::Enemy(sf::Texture* texture, sf::Vector2f* position)
 {
 	active = true;
 	set_position(*position);

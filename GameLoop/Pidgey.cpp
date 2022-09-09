@@ -1,7 +1,7 @@
 #include "Pidgey.h"
 
-Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern)
-: Enemy(texture, position, pattern)
+Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position)
+: Enemy(texture, position)
 {
 	PRINT("Pidgey constructor");
 	enemy_type = PIDGEY;

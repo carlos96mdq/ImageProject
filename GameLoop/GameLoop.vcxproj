@@ -131,6 +131,7 @@
   </ItemDefinitionGroup>
   <ItemGroup>
     <ClCompile Include="Beedrill.cpp" />
+    <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Butterfree.cpp" />
     <ClCompile Include="Enemy.cpp" />
     <ClCompile Include="EnemyBullet.cpp" />
@@ -150,6 +151,7 @@
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Beedrill.h" />
+    <ClInclude Include="Boss.h" />
     <ClInclude Include="Butterfree.h" />
     <ClInclude Include="Constants.h" />
     <ClInclude Include="Enemy.h" />

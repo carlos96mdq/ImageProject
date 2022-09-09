@@ -15,6 +15,6 @@ protected:
 	virtual void shooting()=0;
 	virtual void timers(float delta_time)=0;
 public:
-	Enemy(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern=0);
+	Enemy(sf::Texture* texture, sf::Vector2f* position);
 	virtual ~Enemy() {};
 };

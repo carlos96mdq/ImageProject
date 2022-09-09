@@ -1,7 +1,7 @@
 #include "Beedrill.h"
 
-Beedrill::Beedrill(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern)
-: Enemy(texture, position, pattern)
+Beedrill::Beedrill(sf::Texture* texture, sf::Vector2f* position)
+: Enemy(texture, position)
 {
 	PRINT("Beedrill constructor");
 	enemy_type = BEEDRILL;

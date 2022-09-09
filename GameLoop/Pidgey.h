@@ -12,7 +12,7 @@ private:
 	virtual void shooting() override;
 	virtual void timers(float delta_time) override;
 public:
-	Pidgey(sf::Texture* texture, sf::Vector2f* position, unsigned int pattern=0);
+	Pidgey(sf::Texture* texture, sf::Vector2f* position);
 	virtual ~Pidgey() {PRINT("Pidgey destrcutor");};
 	virtual void update(float delta_time) override;
 };

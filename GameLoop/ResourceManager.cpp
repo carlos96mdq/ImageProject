@@ -1,8 +1,14 @@
+/***************************************************************************************************************************/
+/* ResourceManager.cpp
+/***************************************************************************************************************************/
+
 #include "ResourceManager.h"
 
+// Static definitions
 ResourceManager* ResourceManager::instance = nullptr;
 std::unordered_map<std::string, sf::Texture*> ResourceManager::textures;
 
+// Singleton initialization
 ResourceManager* ResourceManager::get_instance()
 {
 	if(instance == nullptr)
@@ -12,14 +18,10 @@ ResourceManager* ResourceManager::get_instance()
 	return instance;
 }
 
+// Get map container with all textures loaded inside
 std::unordered_map<std::string, sf::Texture*> ResourceManager::get_textures()
 {
 	return textures;
-}
-
-sf::Texture* ResourceManager::get_texture(std::string texture_name)
-{
-	return textures.at(texture_name);
 }
 
 // Load in graphic memory all the game textures
@@ -99,11 +101,7 @@ bool ResourceManager::load_textures()
 	return correct_init;
 }
 
-int ResourceManager::get_count()
-{
-	return textures.size();
-}
-
+// Cleans all texture from memory
 void ResourceManager::clear()
 {
 	for(auto const& texture : textures)

@@ -1,12 +1,15 @@
+/***************************************************************************************************************************/
+/* Game.h
+/* Main manager of the game. It has references to all managers and entities, and manages the game flow
+/***************************************************************************************************************************/
+
 #include "Game.h"
 
 // Process all players inputs and handle them
 void Game::process_input()
 {
-
 	// Create the event handler
 	sf::Event event;
-	
 	// Get all the events of the event queue
 	while (window.pollEvent(event))
 	{
@@ -21,7 +24,6 @@ void Game::process_input()
 				break;
 		}
 	}
-
 	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
 	{
 	}
@@ -30,7 +32,6 @@ void Game::process_input()
 // Update all entities and managers, including player and enemies
 void Game::update(float delta_time)
 {
-
 	// Update all entities
 	for (Entity* const& entity: EntityManager::get_entities())
 	{
@@ -39,7 +40,6 @@ void Game::update(float delta_time)
 			entity->update(delta_time);
 		}
 	}
-
 	// Update SpawnManager timers and events
 	SpawnManager::get_instance()->update(delta_time);
 }
@@ -47,7 +47,6 @@ void Game::update(float delta_time)
 // Check if any entity has shot a bullet and create that bullet entity
 void Game::shooting_events()
 {
-
 	EntityManager* entity_manager = EntityManager::get_instance();
 	ResourceManager* resource_manager = ResourceManager::get_instance();
 
@@ -69,7 +68,6 @@ void Game::shooting_events()
 					}
 					break;
 				}
-
 				case EntityType::ENEMY:
 				{
 					Shooter* enemy = dynamic_cast<Shooter*>(entity);
@@ -83,7 +81,6 @@ void Game::shooting_events()
 					break;
 				}
 			}
-
 		}
 	}
 }
@@ -91,7 +88,6 @@ void Game::shooting_events()
 // Check all the important collisions and handle the results
 void Game::collision_events()
 {
-	
 	std::list<Entity*> entities = EntityManager::get_entities();
 	EntityManager* entity_manager = EntityManager::get_instance();
 	
@@ -123,7 +119,6 @@ void Game::collision_events()
 				}
 				break;
 			}
-			
 			// Check enemy collisions
 			case EntityType::ENEMY:
 			{
@@ -154,7 +149,6 @@ void Game::collision_events()
 				}
 				break;
 			}
-
 			// Check player bullets collisions
 			case EntityType::PLAYER_BULLET:
 			{
@@ -180,7 +174,6 @@ void Game::collision_events()
 				}
 				break;
 			}
-
 			// Check player bullets collisions
 			case EntityType::ENEMY_BULLET:
 			{
@@ -206,7 +199,30 @@ void Game::collision_events()
 				}
 				break;
 			}
-
+			// Check player bullets collisions
+			case EntityType::BOSS:
+			{
+				EnemyBullet* enemy_bullet = dynamic_cast<EnemyBullet*>(entity);
+				if (enemy_bullet != nullptr)
+				{
+					// Check if bullet get out of screen
+					if (enemy_bullet->get_sprite_rect().top > WINDOW_HEIGHT || enemy_bullet->get_sprite_rect().top < 0)
+					{
+						entity->kill_entity();
+					}
+					// Check bullet collision with other entities
+					sf::FloatRect my_rect = enemy_bullet->get_sprite_rect();
+					for (Entity* const& col_entity : entities)
+					{
+						if	(col_entity->get_type() == EntityType::PLAYER
+							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
+						{
+							entity->kill_entity();
+						}
+					}
+				}
+				break;
+			}
 			default:
 				break;
 		}
@@ -231,26 +247,23 @@ void Game::spawning_events()
 			unsigned int enemy_type = enemies_to_spawn.front()->type;
 			switch (enemy_type)
 			{
-			case PIDGEY:
+				case PIDGEY:
 				{
 					entity_manager->add_entity(new Pidgey(resource_manager->get_texture("pidgey_sprite"), enemies_to_spawn.front()->position));
+					break;
 				}
-				break;
-			
-			case BEEDRILL:
+				case BEEDRILL:
 				{
 					entity_manager->add_entity(new Beedrill(resource_manager->get_texture("beedrill_sprite"), enemies_to_spawn.front()->position));
+					break;
 				}
-				break;
-			
-			case BUTTERFREE:
+				case BUTTERFREE:
 				{
 					entity_manager->add_entity(new Butterfree(resource_manager->get_texture("butterfree_sprite"), enemies_to_spawn.front()->position));
+					break;
 				}
-				break;
-			
-			default:
-				break;
+				default:
+					break;
 			}
 			enemies_to_spawn.pop();
 		}
@@ -262,7 +275,6 @@ void Game::spawning_events()
 // Destroy all entities that are marked to be destroyed
 void Game::destroyer()
 {
-
 	for (Entity* const& entity: EntityManager::get_entities())
 	{
 		if (!entity->is_alive())
@@ -275,7 +287,6 @@ void Game::destroyer()
 // Draw all objects on window
 void Game::render()
 {
-
 	window.clear();
 	
 	for (Entity* const& entity : EntityManager::get_entities())
@@ -289,14 +300,13 @@ void Game::render()
 			}
 		}
 	}
-	
+
 	window.display();
 }
 
 // Initialize game windows and important entities
 void Game::init()
 {
-
 	ResourceManager* resource_manager = ResourceManager::get_instance();
 	EntityManager* entity_manager = EntityManager::get_instance();
 
@@ -306,7 +316,6 @@ void Game::init()
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
 	resource_manager->load_textures();
 	unsigned int player = entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite")));
-	// entity_manager->add_entity(new Enemy(resource_manager->get_texture("enemy_sprite")));
 	
 	dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(800 / 2, 600 / 2);
 }
@@ -314,7 +323,6 @@ void Game::init()
 // Main gameloop
 void Game::loop()
 {
-	
 	sf::Clock clock;
 	
 	// Verify if the game window still running and ejecute all the fram verifications and updates
