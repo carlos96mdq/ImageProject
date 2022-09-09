@@ -262,6 +262,11 @@ void Game::spawning_events()
 					entity_manager->add_entity(new Butterfree(resource_manager->get_texture("butterfree_sprite"), enemies_to_spawn.front()->position));
 					break;
 				}
+				case PIDGEOT:
+				{
+					entity_manager->add_entity(new Boss(resource_manager->get_texture("pidgeot_sprite"), enemies_to_spawn.front()->position));
+					break;
+				}
 				default:
 					break;
 			}
@@ -317,7 +322,7 @@ void Game::init()
 	resource_manager->load_textures();
 	unsigned int player = entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite")));
 	
-	dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(800 / 2, 600 / 2);
+	dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 }
 
 // Main gameloop

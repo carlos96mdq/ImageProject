@@ -33,7 +33,7 @@ void EnemyBullet::set_direction()
 	MATH::normalize(direction);
 }
 
-// Needs to be overriden from SPrite parent class because an position change has to been done based on bullet origin
+// Needs to be overriden from Sprite parent class because an position change has to been done based on bullet origin
 void EnemyBullet::set_position(sf::Vector2f new_position)
 {
 	new_position += sf::Vector2f(0, get_sprite_rect().height / 2);

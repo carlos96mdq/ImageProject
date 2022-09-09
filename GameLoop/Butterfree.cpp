@@ -12,6 +12,12 @@ Butterfree::Butterfree(sf::Texture* texture, sf::Vector2f* position)
 	enemy_type = BUTTERFREE;
 	speed = 150;
 	change_direction = false;
+	// Set new state time values
+	float t_rand = (rand() % 10 + 1) / 10.0;
+	state_times[1] += t_rand; 
+	state_times[2] += t_rand; 
+	set_sprite(texture);
+	set_position(*position);
 	if (get_position().x > WINDOW_WIDTH)
 	{
 		direction = DIRECTIONS[LEFT];
@@ -24,11 +30,6 @@ Butterfree::Butterfree(sf::Texture* texture, sf::Vector2f* position)
 		state = 2;
 		initial_state = 2;
 	}
-	// Set new state time values
-	float t_rand = (rand() % 10 + 1) / 10.0;
-	state_times[1] += t_rand; 
-	state_times[2] += t_rand; 
-	set_sprite(texture);
 }
 
 // Set the spritesheet and the current sprite

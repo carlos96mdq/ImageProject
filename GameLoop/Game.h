@@ -17,6 +17,7 @@
 #include "Beedrill.h"
 #include "Butterfree.h"
 #include "EnemyBullet.h"
+#include "Boss.h"
 
 class Game
 {

@@ -35,84 +35,87 @@ void SpawnManager::enemy_spawner()
 {
 	if (enemy_spawn_timer >= 3.0)
 	{
-		switch (level_index)
-		{
-			case 1:
-			{
-				unsigned short enemy_to_spawn = rand() % 5;
-				switch (enemy_to_spawn)
-				{
-					case 0:
-					{
-						enemy_spawner_flag = true;
-						float ran_factor = (rand() % 45 + 1) / 100.0;
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 10)));
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 10)));
-						ran_factor = (rand() % 50 + 1) / 100.0;
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
-					}
-					break;
+		enemy_spawner_flag = true;
+		enemies_to_spawn.push(new NewEnemyData(PIDGEOT, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.5, 100)));
+		// switch (level_index)
+		// {
+		// 	case 1:
+		// 	{
+		// 		unsigned short enemy_to_spawn = rand() % 5;
+		// 		switch (enemy_to_spawn)
+		// 		{
+		// 			case 0:
+		// 			{
+		// 				enemy_spawner_flag = true;
+		// 				float ran_factor = (rand() % 45 + 1) / 100.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 20)));
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 20)));
+		// 				ran_factor = (rand() % 50 + 1) / 100.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
+		// 			}
+		// 			break;
 					
-					case 1:
-					{
-						enemy_spawner_flag = true;
-						float ran_factor = (rand() % 45 + 1) / 100.0;
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 10)));
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 10)));
-						ran_factor = (rand() % 7 + 2) / 10.0;
-						enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
-						enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
-					}
-					break;
+		// 			case 1:
+		// 			{
+		// 				enemy_spawner_flag = true;
+		// 				float ran_factor = (rand() % 45 + 1) / 100.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 20)));
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 20)));
+		// 				ran_factor = (rand() % 7 + 2) / 10.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
+		// 			}
+		// 			break;
 					
-					case 2:
-					{
-						enemy_spawner_flag = true;
-						float ran_factor = (rand() % 50 + 1) / 100.0;
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
-						ran_factor = (rand() % 7 + 2) / 10.0;
-						enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
-						enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
-					}
-					break;
+		// 			case 2:
+		// 			{
+		// 				enemy_spawner_flag = true;
+		// 				float ran_factor = (rand() % 50 + 1) / 100.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
+		// 				ran_factor = (rand() % 7 + 2) / 10.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BUTTERFREE, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
+		// 			}
+		// 			break;
 					
-					case 3:
-					{
-						enemy_spawner_flag = true;
-						float ran_factor = (rand() % 45 + 1) / 100.0;
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 10)));
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 10)));
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor * 0.5), 10)));
-						enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor) * 0.5, 10)));
-					}
-					break;
+		// 			case 3:
+		// 			{
+		// 				enemy_spawner_flag = true;
+		// 				float ran_factor = (rand() % 45 + 1) / 100.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor), 20)));
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor), 20)));
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 + ran_factor * 0.5), 20)));
+		// 				enemies_to_spawn.push(new NewEnemyData(PIDGEY, new sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * (0.5 - ran_factor) * 0.5, 20)));
+		// 			}
+		// 			break;
 
-					case 4:
-					{
-						enemy_spawner_flag = true;
-						float ran_factor = (rand() % 50 + 1) / 100.0;
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor * 0.5)));
-						enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor * 0.5)));
-					}
-					break;
+		// 			case 4:
+		// 			{
+		// 				enemy_spawner_flag = true;
+		// 				float ran_factor = (rand() % 50 + 1) / 100.0;
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(WINDOW_WIDTH + 10, WINDOW_HEIGHT * ran_factor * 0.5)));
+		// 				enemies_to_spawn.push(new NewEnemyData(BEEDRILL, new sf::Vector2f(-10, WINDOW_HEIGHT * ran_factor * 0.5)));
+		// 			}
+		// 			break;
 					
-					default:
-						break;
-				}
-			}
+		// 			default:
+		// 				break;
+		// 		}
+		// 	}
 			
-			default:
-				break;
-		}
+		// 	default:
+		// 		break;
+		// }
 	}
 	
 	if (enemy_spawner_flag)
 	{
-		enemy_spawn_timer = 0.0;
+		// enemy_spawn_timer = 0.0;
+		enemy_spawn_timer = -100000.0;
 	}
 	
 }

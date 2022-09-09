@@ -14,6 +14,7 @@ Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position)
 	change_direction = false;
 	direction = DIRECTIONS[NULL_DIR];
 	set_sprite(texture);
+	set_position(*position);
 }
 
 // Set the spritesheet and the current sprite
@@ -184,6 +185,7 @@ void Pidgey::timers(float delta_time)
 	}
 }
 
+// Update
 void Pidgey::update(float delta_time)
 {
 	movement(delta_time);

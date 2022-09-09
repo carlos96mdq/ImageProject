@@ -11,17 +11,21 @@ Beedrill::Beedrill(sf::Texture* texture, sf::Vector2f* position)
 	PRINT("Beedrill constructor");
 	enemy_type = BEEDRILL;
 	speed = 350;
+	set_sprite(texture);
+	set_position(*position);
 	if (get_position().x > WINDOW_WIDTH)
 	{
 		direction = DIRECTIONS[DOWN_LEFT];
 		state = 0;
+		sprite_index = 0;
 	}
 	else
 	{
 		direction = DIRECTIONS[DOWN_RIGHT];
 		state = 1;
+		sprite_index = 1;
 	}
-	set_sprite(texture);
+	set_current_sprite(*sprites[sprite_index]);
 }
 
 // Set the spritesheet and the current sprite
@@ -35,15 +39,6 @@ void Beedrill::set_sprite(sf::Texture* texture)
 	sf::IntRect sprite_sheet(get_sprite_sheet_rect());
 	sprites.push_back(new sf::IntRect(sprite_sheet.left, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
 	sprites.push_back(new sf::IntRect(sprite_sheet.left + sprite_sheet.width / 2, sprite_sheet.top, sprite_sheet.width / 2, sprite_sheet.height));
-	if (state == 0)
-	{
-		sprite_index = 0;
-	}
-	else
-	{
-		sprite_index = 1;
-	}
-	set_current_sprite(*sprites[sprite_index]);
 }
 
 // Move enemy in a patron
