@@ -6,7 +6,7 @@
 
 // Constructor
 Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position)
-: Enemy(texture, position)
+: Enemy(texture)
 {
 	PRINT("Pidgey constructor");
 	enemy_type = PIDGEY;

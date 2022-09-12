@@ -20,7 +20,8 @@ protected:
 	virtual void shooting()=0;
 	virtual void timers(float delta_time)=0;
 public:
-	Enemy(sf::Texture* texture, sf::Vector2f* position);
+	Enemy(sf::Texture* texture);
 	virtual ~Enemy() {};
 	virtual void set_position(sf::Vector2f new_position) override;
+	const unsigned int get_type() const { return enemy_type; }
 };

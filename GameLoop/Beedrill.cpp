@@ -6,7 +6,7 @@
 
 // Constructor
 Beedrill::Beedrill(sf::Texture* texture, sf::Vector2f* position)
-: Enemy(texture, position)
+: Enemy(texture)
 {
 	PRINT("Beedrill constructor");
 	enemy_type = BEEDRILL;
