@@ -151,7 +151,7 @@ void Game::collision_events()
 						{
 							entity->kill_entity();
 							// Add enemy points to player score
-							switch (dynamic_cast<Enemy*>(col_entity)->get_type())
+							switch (enemy->get_type())
 							{
 								case PIDGEY:
 									score += 1;
@@ -198,7 +198,7 @@ void Game::collision_events()
 					for (Entity* const& col_entity : entities)
 					{
 						// Collision with enemy or boss
-						if	(col_entity->get_type() == EntityType::ENEMY || col_entity->get_type() == EntityType::BOSS
+						if	((col_entity->get_type() == EntityType::ENEMY || col_entity->get_type() == EntityType::BOSS)
 							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();

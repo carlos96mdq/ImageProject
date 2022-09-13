@@ -25,6 +25,8 @@ private:
 	SpawnManager();
 	virtual ~SpawnManager() {};
 	unsigned int level_index;
+	unsigned int level_counter;
+	bool last_spawn;
 	float enemy_spawn_timer;
 	bool enemy_spawner_flag;
 	void enemy_spawner();

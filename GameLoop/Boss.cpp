@@ -13,7 +13,7 @@ Boss::Boss(sf::Texture* texture, sf::Vector2f* position)
 	type = EntityType::BOSS;
 	enemy_type = PIDGEOT;
 	speed = 150;
-	life = 10;
+	life = 100;
 	can_shoot = false;
 	direction = DIRECTIONS[DOWN];
 	rotation_factor = 1;

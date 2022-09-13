@@ -10,7 +10,7 @@ Beedrill::Beedrill(sf::Texture* texture, sf::Vector2f* position)
 {
 	PRINT("Beedrill constructor");
 	enemy_type = BEEDRILL;
-	speed = 350;
+	speed = 450;
 	set_sprite(texture);
 	set_position(*position);
 	if (get_position().x > WINDOW_WIDTH)

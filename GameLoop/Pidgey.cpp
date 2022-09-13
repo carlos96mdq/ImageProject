@@ -10,7 +10,7 @@ Pidgey::Pidgey(sf::Texture* texture, sf::Vector2f* position)
 {
 	PRINT("Pidgey constructor");
 	enemy_type = PIDGEY;
-	speed = 200;
+	speed = 500;
 	change_direction = false;
 	direction = DIRECTIONS[NULL_DIR];
 	set_sprite(texture);

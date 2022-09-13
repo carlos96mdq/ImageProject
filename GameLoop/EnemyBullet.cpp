@@ -8,7 +8,7 @@
 EnemyBullet::EnemyBullet(sf::Texture* texture, sf::Vector2f position)
 {
 	active = true;
-	speed = 350;
+	speed = 450;
 	type = EntityType::ENEMY_BULLET;
 	state = 0;
 	state_timer = 0;
