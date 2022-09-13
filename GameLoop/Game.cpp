@@ -62,8 +62,7 @@ void Game::shooting_events()
 					if (player != nullptr && player->is_shooting())
 					{
 						player->already_shot();
-						unsigned int bullet = entity_manager->add_entity(new PlayerBullet(resource_manager->get_texture("player_bullet_sprite")));
-						dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(player->get_shooting_position());
+						entity_manager->add_entity(new PlayerBullet(resource_manager->get_texture("player_bullet_sprite"), player->get_shooting_position()));
 					}
 					break;
 				}
@@ -75,13 +74,7 @@ void Game::shooting_events()
 						enemy->already_shot();
 						if (enemy->get_type() == PIDGEY)
 						{
-							unsigned int bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite")));
-							dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position());
-						}
-						else
-						{
-							unsigned int bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite")));
-							dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position());
+						entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite"), enemy->get_shooting_position()));
 						}
 					}
 					break;
@@ -94,12 +87,9 @@ void Game::shooting_events()
 						enemy->already_shot();
 						if (enemy->get_type() == PIDGEOT)
 						{
-							unsigned int bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite")));
-							dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position());
-							bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite")));
-							dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position() + sf::Vector2f(100.0, 0));
-							bullet = entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite")));
-							dynamic_cast<Sprite*>(entity_manager->get_entity(bullet))->set_position(enemy->get_shooting_position() + sf::Vector2f(-100.0, 0));
+							entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite"), enemy->get_shooting_position()));
+							entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite"), enemy->get_shooting_position() + sf::Vector2f(100.0, 0)));
+							entity_manager->add_entity(new EnemyBullet(resource_manager->get_texture("twister_sprite"), enemy->get_shooting_position() + sf::Vector2f(-100.0, 0)));
 						}
 					}
 					break;

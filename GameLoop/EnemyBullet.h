@@ -21,7 +21,8 @@ private:
 	void movement(float delta_time);
 	void timers(float delta_time);
 public:
-	EnemyBullet(sf::Texture* texture);
+	// EnemyBullet(sf::Texture* texture);
+	EnemyBullet(sf::Texture* texture, sf::Vector2f position);
 	virtual ~EnemyBullet() {};
 	virtual void set_position(sf::Vector2f new_position) override;
 	virtual void update(float delta_time) override;

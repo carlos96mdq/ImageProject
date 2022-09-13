@@ -5,7 +5,7 @@
 #include "EnemyBullet.h"
 
 // Constructor
-EnemyBullet::EnemyBullet(sf::Texture* texture)
+EnemyBullet::EnemyBullet(sf::Texture* texture, sf::Vector2f position)
 {
 	active = true;
 	speed = 350;
@@ -15,6 +15,7 @@ EnemyBullet::EnemyBullet(sf::Texture* texture)
 	change_direction = false;
 	angle_orientation = 1;
 	set_sprite(texture);
+	set_position(position);
 }
 
 // Set the spritesheet and the current sprite

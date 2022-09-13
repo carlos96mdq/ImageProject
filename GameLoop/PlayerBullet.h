@@ -5,8 +5,8 @@
 class PlayerBullet : public Movable
 {
 public:
-	PlayerBullet(sf::Texture* texture);
-	virtual ~PlayerBullet() {};
+	PlayerBullet(sf::Texture* texture, sf::Vector2f position);
+	virtual ~PlayerBullet() { PRINT("Bullet destructor"); };
 	virtual void update(float delta_time) override;
 };
 

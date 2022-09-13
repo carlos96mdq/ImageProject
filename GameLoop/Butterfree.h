@@ -19,6 +19,6 @@ private:
 	virtual void timers(float delta_time) override;
 public:
 	Butterfree(sf::Texture* texture, sf::Vector2f* position);
-	virtual ~Butterfree() {PRINT("Butterfree destructor");};
+	virtual ~Butterfree() { PRINT("Butterfree destructor"); };
 	virtual void update(float delta_time) override;
 };
