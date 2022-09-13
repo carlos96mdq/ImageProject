@@ -18,5 +18,6 @@ public:
 	virtual ~Movable() {};
 	void move(float x, float y);
 	void move(sf::Vector2f vector);
+	virtual void set_position(sf::Vector2f new_position) override;
 };
 

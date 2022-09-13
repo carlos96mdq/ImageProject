@@ -5,7 +5,7 @@
 #include "Player.h"
 
 // Constructor
-Player::Player(sf::Texture* texture)
+Player::Player(sf::Texture* texture, sf::Vector2f position)
 {
 	active = true;
 	speed = 400;
@@ -13,6 +13,7 @@ Player::Player(sf::Texture* texture)
 	shooting_position = sf::Vector2f(sprite.getPosition());
 	shoot_cooldown = 0.5;
 	set_sprite(texture);
+	set_position(position);
 };
 
 // Set the spritesheet and the current sprite

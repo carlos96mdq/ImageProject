@@ -129,13 +129,10 @@ void Game::collision_events()
 					sf::FloatRect my_rect = player->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
-						if	(col_entity->get_type() == EntityType::ENEMY_BULLET
+						if	((col_entity->get_type() == EntityType::ENEMY_BULLET
+							|| col_entity->get_type() == EntityType::ENEMY
+							|| col_entity->get_type() == EntityType::BOSS)
 							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
-						{
-							entity->kill_entity();
-						}
-						else if	(col_entity->get_type() == EntityType::ENEMY
-								&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
 						}
@@ -163,6 +160,27 @@ void Game::collision_events()
 							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
+							// Add enemy points to player score
+							switch (dynamic_cast<Enemy*>(col_entity)->get_type())
+							{
+								case PIDGEY:
+									score += 1;
+									PRINT(score);
+									break;
+								
+								case BEEDRILL:
+									score += 3;
+									PRINT(score);
+									break;
+								
+								case BUTTERFREE:
+									score += 2;
+									PRINT(score);
+									break;
+								
+								default:
+									break;
+							}
 						}
 						else if	(col_entity->get_type() == EntityType::PLAYER
 								&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
@@ -189,7 +207,8 @@ void Game::collision_events()
 					sf::FloatRect my_rect = player_bullet->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
-						if	(col_entity->get_type() == EntityType::ENEMY
+						// Collision with enemy or boss
+						if	(col_entity->get_type() == EntityType::ENEMY || col_entity->get_type() == EntityType::BOSS
 							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
 							entity->kill_entity();
@@ -198,7 +217,7 @@ void Game::collision_events()
 				}
 				break;
 			}
-			// Check player bullets collisions
+			// Check enemy bullets collisions
 			case EntityType::ENEMY_BULLET:
 			{
 				EnemyBullet* enemy_bullet = dynamic_cast<EnemyBullet*>(entity);
@@ -223,25 +242,27 @@ void Game::collision_events()
 				}
 				break;
 			}
-			// Check player bullets collisions
+			// Check boss collisions
 			case EntityType::BOSS:
 			{
-				EnemyBullet* enemy_bullet = dynamic_cast<EnemyBullet*>(entity);
-				if (enemy_bullet != nullptr)
+				Boss* boss = dynamic_cast<Boss*>(entity);
+				if (boss != nullptr)
 				{
-					// Check if bullet get out of screen
-					if (enemy_bullet->get_sprite_rect().top > WINDOW_HEIGHT || enemy_bullet->get_sprite_rect().top < 0)
-					{
-						entity->kill_entity();
-					}
-					// Check bullet collision with other entities
-					sf::FloatRect my_rect = enemy_bullet->get_sprite_rect();
+					// Check boss collision with other entities
+					sf::FloatRect my_rect = boss->get_sprite_rect();
 					for (Entity* const& col_entity : entities)
 					{
-						if	(col_entity->get_type() == EntityType::PLAYER
+						if	(col_entity->get_type() == EntityType::PLAYER_BULLET
 							&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
 						{
-							entity->kill_entity();
+							boss->do_damage(1);
+							PRINT(boss->get_life());
+							if (boss->get_life() < 0)
+							{
+								entity->kill_entity();
+								score += 20;
+								PRINT(score);
+							}
 						}
 					}
 				}
@@ -342,11 +363,16 @@ void Game::init()
 	// Initialize pseudo-randomizer
 	srand(time(0));
 	
+	// Initialize score
+	score = 0;
+	PRINT(score)
+
+	// Create game window
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
 	resource_manager->load_textures();
-	unsigned int player = entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite")));
-	
-	dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite"), sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)));
+	// unsigned int player = entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite")));
+	// dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
 }
 
 // Main gameloop

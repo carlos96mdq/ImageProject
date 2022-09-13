@@ -28,7 +28,6 @@ void EnemyBullet::set_sprite(sf::Texture* texture)
 void EnemyBullet::set_direction()
 {
 	float random = ((rand() % 21) - 10) / 10.0;
-	PRINT(random);
 	direction = DIRECTIONS[DOWN] + sf::Vector2f(random, 0);
 	MATH::normalize(direction);
 }

@@ -17,7 +17,7 @@ private:
 	void shooting();
 	void timers(float delta_time);
 public:
-	Player(sf::Texture* texture);
+	Player(sf::Texture* texture, sf::Vector2f position);
 	virtual ~Player() {};
 	virtual void update(float delta_time) override;
 };

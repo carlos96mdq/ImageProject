@@ -16,6 +16,7 @@ protected:
 	float degree_counter;
 	float random_tornadus;
 	float random_attack;
+	int life;
 	sf::Vector2f initial_postion;
 	sf::Vector2f current_position;
 	sf::Vector2f current_direction;
@@ -27,7 +28,8 @@ protected:
 public:
 	Boss(sf::Texture* texture, sf::Vector2f* position);
 	~Boss() {PRINT("Boss destructor")};
-	// virtual void set_position(sf::Vector2f new_position) override;
+	void do_damage(int damage);
 	virtual void update(float delta_time) override;
+	const int get_life() const { return life; };
 };
 

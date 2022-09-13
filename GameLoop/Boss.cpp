@@ -13,14 +13,13 @@ Boss::Boss(sf::Texture* texture, sf::Vector2f* position)
 	type = EntityType::BOSS;
 	enemy_type = PIDGEOT;
 	speed = 150;
+	life = 10;
 	can_shoot = false;
 	direction = DIRECTIONS[DOWN];
 	rotation_factor = 1;
 	degree_counter = 0.0;
 	random_tornadus = (rand() % 50 + 20) / 10.0;
 	random_attack = (rand() % 50 + 20) / 10.0;
-	// random_tornadus = 5.0;
-	// random_attack = 6.0;
 	set_sprite(texture);
 	set_position(*position);
 	initial_postion = *position;
@@ -213,6 +212,12 @@ void Boss::timers(float delta_time)
 		change_sprite = true;
 		sprite_timer = 0.0;
 	}
+}
+
+// Receive a damage value and discount it to boss life
+void Boss::do_damage(int damage)
+{
+	life -= damage;
 }
 
 // Update

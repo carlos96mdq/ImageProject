@@ -23,6 +23,7 @@ class Game
 {
 private:
 	sf::RenderWindow window;
+	unsigned int score;
 	void process_input();
 	void update(float delta_time);
 	void shooting_events();
