@@ -29,7 +29,7 @@ public:
 	Boss(sf::Texture* texture, sf::Vector2f* position);
 	~Boss() {PRINT("Boss destructor")};
 	void do_damage(int damage);
-	virtual void update(float delta_time) override;
+	virtual bool update(float delta_time) override;
 	const int get_life() const { return life; };
 };
 

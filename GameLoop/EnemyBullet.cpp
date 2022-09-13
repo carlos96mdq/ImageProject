@@ -102,10 +102,11 @@ void EnemyBullet::timers(float delta_time)
 	}
 }
 
-// Update
-void EnemyBullet::update(float delta_time)
+// If needed, a true flag is returned
+bool EnemyBullet::update(float delta_time)
 {
 	movement(delta_time);
 	sprite_frame();
 	timers(delta_time);
+	return false;
 }

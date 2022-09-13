@@ -30,6 +30,7 @@ public:
 	void draw(sf::RenderWindow* window);
 	void set_texture(const sf::Texture &texture);
 	virtual void set_position(sf::Vector2f new_position);
+	virtual void set_position(float new_x, float new_y);
 	void set_current_sprite(const sf::IntRect& new_sprite);
 	const sf::FloatRect get_sprite_rect() const { return sprite.getGlobalBounds(); }
 	const sf::Sprite& get_sprite() const { return sprite; };

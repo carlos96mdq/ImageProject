@@ -19,6 +19,6 @@ private:
 public:
 	Pidgey(sf::Texture* texture, sf::Vector2f* position);
 	virtual ~Pidgey() {PRINT("Pidgey destrcutor");};
-	virtual void update(float delta_time) override;
+	virtual bool update(float delta_time) override;
 };
 

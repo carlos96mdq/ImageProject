@@ -132,18 +132,6 @@ void Butterfree::sprite_frame()
 	}
 }
 
-// // Enemy shoots bullets in a patron
-// void Butterfree::shooting()
-// {
-// 	if (can_shoot && state == 0)
-// 	{
-// 		sf::FloatRect rect = sprite.getGlobalBounds();
-// 		shooting_position = sf::Vector2f(rect.left + rect.width / 2, rect.top + rect.height);
-// 		shoot = true;
-// 		can_shoot = false;
-// 	}
-// }
-
 // Increase active timers and handle timers events. All times are measured in seconds
 void Butterfree::timers(float delta_time)
 {
@@ -189,10 +177,11 @@ void Butterfree::timers(float delta_time)
 	}
 }
 
-void Butterfree::update(float delta_time)
+// If needed, a true flag is returned
+bool Butterfree::update(float delta_time)
 {
 	movement(delta_time);
 	sprite_frame();
-	// shooting();
 	timers(delta_time);
+	return false;
 }

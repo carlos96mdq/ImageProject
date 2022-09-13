@@ -185,11 +185,12 @@ void Pidgey::timers(float delta_time)
 	}
 }
 
-// Update
-void Pidgey::update(float delta_time)
+// If needed, a true flag is returned
+bool Pidgey::update(float delta_time)
 {
 	movement(delta_time);
 	sprite_frame();
 	shooting();
 	timers(delta_time);
+	return false;
 }

@@ -22,6 +22,5 @@ protected:
 public:
 	Enemy(sf::Texture* texture);
 	virtual ~Enemy() {};
-	// virtual void set_position(sf::Vector2f new_position) override;
 	const unsigned int get_type() const { return enemy_type; }
 };

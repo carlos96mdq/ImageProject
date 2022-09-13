@@ -32,12 +32,30 @@ void Game::process_input()
 // Update all entities and managers, including player and enemies
 void Game::update(float delta_time)
 {
+	// This flag needs to be put false by a background informing that it is still there to not let any black screen
+	need_background_flag = true;
 	// Update all entities
 	for (Entity* const& entity: EntityManager::get_entities())
 	{
 		if (entity->is_active())
 		{
-			entity->update(delta_time);
+			bool flag;
+			flag = entity->update(delta_time);
+			// Some entities returned an active flag
+			if (flag)
+			{
+				switch (entity->get_type())
+				{
+					case EntityType::BACKGROUND:
+					{
+						need_background_flag = false;
+						break;
+					}
+					default:
+						break;
+				}
+			}
+			
 		}
 	}
 	// Update SpawnManager timers and events
@@ -258,6 +276,20 @@ void Game::collision_events()
 				}
 				break;
 			}
+			// Check enemy collisions
+			case EntityType::BACKGROUND:
+			{
+				Background* background = dynamic_cast<Background*>(entity);
+				if (background != nullptr)
+				{
+					// Check if background image gets out of screen
+					if (background->get_sprite_rect().top > WINDOW_HEIGHT)
+					{
+						entity->kill_entity();
+					}
+				}
+				break;
+			}
 			default:
 				break;
 		}
@@ -272,6 +304,7 @@ void Game::spawning_events()
 	SpawnManager* spawn_manager = SpawnManager::get_instance();
 	std::queue<NewEnemyData*> enemies_to_spawn = SpawnManager::get_enemies();
 
+	// Spawn new enemies
 	if (spawn_manager->get_enemy_spawner_flag())
 	{
 		spawn_manager->enemy_already_spawned();
@@ -310,6 +343,12 @@ void Game::spawning_events()
 		// As the enemies_to_spawn is a copy, the true queue needs to be clean
 		spawn_manager->clear_enemies();
 	}
+	// Spawn new background sprite
+	if (need_background_flag)
+	{
+		entity_manager->add_entity(new Background(resource_manager->get_texture("viridian_forest_sprite"), sf::Vector2f(0, 0)));
+	}
+	
 }
 
 // Destroy all entities that are marked to be destroyed
@@ -328,10 +367,10 @@ void Game::destroyer()
 void Game::render()
 {
 	window.clear();
-	
+	// Draw the background
 	for (Entity* const& entity : EntityManager::get_entities())
 	{
-		if (entity->is_active())
+		if (entity->is_active() && entity->get_type() == EntityType::BACKGROUND)
 		{
 			Sprite* sprite = dynamic_cast<Sprite*>(entity);
 			if (sprite != nullptr)
@@ -340,7 +379,18 @@ void Game::render()
 			}
 		}
 	}
-
+	// Draw all left sprites
+	for (Entity* const& entity : EntityManager::get_entities())
+	{
+		if (entity->is_active() && entity->get_type() != EntityType::BACKGROUND)
+		{
+			Sprite* sprite = dynamic_cast<Sprite*>(entity);
+			if (sprite != nullptr)
+			{
+				sprite->draw(&window);
+			}
+		}
+	}
 	window.display();
 }
 
@@ -359,10 +409,12 @@ void Game::init()
 
 	// Create game window
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
+	// Load all game textures
 	resource_manager->load_textures();
+	// Create player
 	entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite"), sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)));
-	// unsigned int player = entity_manager->add_entity(new Player(resource_manager->get_texture("player_sprite")));
-	// dynamic_cast<Movable*>(entity_manager->get_entity(player))->move(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2);
+	// Create first level scenary
+	entity_manager->add_entity(new Background(resource_manager->get_texture("viridian_forest_sprite"), sf::Vector2f(0, WINDOW_HEIGHT)));
 }
 
 // Main gameloop

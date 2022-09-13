@@ -109,7 +109,6 @@ void SpawnManager::enemy_spawner()
 				break;
 		}
 	}
-	
 	if (enemy_spawner_flag)
 	{
 		enemy_spawn_timer = 0.0;

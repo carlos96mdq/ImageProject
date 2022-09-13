@@ -20,5 +20,5 @@ private:
 public:
 	Butterfree(sf::Texture* texture, sf::Vector2f* position);
 	virtual ~Butterfree() { PRINT("Butterfree destructor"); };
-	virtual void update(float delta_time) override;
+	virtual bool update(float delta_time) override;
 };

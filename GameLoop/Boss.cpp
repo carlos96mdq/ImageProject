@@ -1,6 +1,5 @@
 /***************************************************************************************************************************/
-/* Boss.h
-/* Boss derived from Enemy class
+/* Boss.cpp
 /***************************************************************************************************************************/
 
 #include "Boss.h"
@@ -220,11 +219,12 @@ void Boss::do_damage(int damage)
 	life -= damage;
 }
 
-// Update
-void Boss::update(float delta_time)
+// If needed, a true flag is returned
+bool Boss::update(float delta_time)
 {
 	movement(delta_time);
 	sprite_frame();
 	shooting();
 	timers(delta_time);
+	return false;
 }

@@ -83,7 +83,9 @@ void Beedrill::timers(float delta_time)
 	}
 }
 
-void Beedrill::update(float delta_time)
+// If needed, a true flag is returned
+bool Beedrill::update(float delta_time)
 {
 	movement(delta_time);
+	return false;
 }

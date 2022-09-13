@@ -130,6 +130,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="Background.cpp" />
     <ClCompile Include="Beedrill.cpp" />
     <ClCompile Include="Boss.cpp" />
     <ClCompile Include="Butterfree.cpp" />
@@ -150,6 +151,7 @@
     <ClCompile Include="Player.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="Background.h" />
     <ClInclude Include="Beedrill.h" />
     <ClInclude Include="Boss.h" />
     <ClInclude Include="Butterfree.h" />

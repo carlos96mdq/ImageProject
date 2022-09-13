@@ -28,6 +28,6 @@ public:
 	const EntityType get_type() const { return type; };
 	const bool is_active() const { return active; }
 	const bool is_alive() const { return alive; }
-	virtual void update(float delta_time)=0;
+	virtual bool update(float delta_time)=0;
 };
 

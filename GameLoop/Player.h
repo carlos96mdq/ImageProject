@@ -19,6 +19,6 @@ private:
 public:
 	Player(sf::Texture* texture, sf::Vector2f position);
 	virtual ~Player() {};
-	virtual void update(float delta_time) override;
+	virtual bool update(float delta_time) override;
 };
 

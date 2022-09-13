@@ -118,11 +118,12 @@ void Player::timers(float delta_time)
 	
 }
 
-// Update
-void Player::update(float delta_time)
+// If needed, a true flag is returned
+bool Player::update(float delta_time)
 {
 	movement(delta_time);
 	sprite_frame();
 	shooting();
 	timers(delta_time);
+	return false;
 }

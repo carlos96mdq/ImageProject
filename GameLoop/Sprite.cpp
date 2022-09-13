@@ -51,6 +51,12 @@ void Sprite::set_position(sf::Vector2f new_position)
 	sprite.setPosition(new_position);
 }
 
+// Set sprite position
+void Sprite::set_position(float new_x, float new_y)
+{
+	sprite.setPosition(new_x, new_y);
+}
+
 // Set sprite scale, which is 1 by default
 void Sprite::set_scale(float scale)
 {

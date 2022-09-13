@@ -11,6 +11,7 @@
 #include "EntityManager.h"
 #include "ResourceManager.h"
 #include "SpawnManager.h"
+#include "Background.h"
 #include "Player.h"
 #include "PlayerBullet.h"
 #include "Pidgey.h"
@@ -24,6 +25,7 @@ class Game
 private:
 	sf::RenderWindow window;
 	unsigned int score;
+	bool need_background_flag;
 	void process_input();
 	void update(float delta_time);
 	void shooting_events();
