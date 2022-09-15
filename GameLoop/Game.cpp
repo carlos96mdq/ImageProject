@@ -76,6 +76,14 @@ void Game::update(float delta_time)
 			default:
 				break;
 		}
+
+		// Set lives in GUI
+		int counter = 1;
+		while (counter <= lives)
+		{
+			EntityManager::get_instance()->add_entity(new Life(ResourceManager::get_instance()->get_texture("player_life_sprite"), sf::Vector2f(counter * 40, WINDOW_HEIGHT - 50)));
+			counter++;
+		}
 	}
 	
 	if (level_index > 0)

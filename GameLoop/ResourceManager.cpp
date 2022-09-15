@@ -119,6 +119,17 @@ bool ResourceManager::load_textures()
 		textures.emplace("viridian_forest_sprite", temp_texture);
 	}
 	
+	temp_texture = new sf::Texture;
+	if (!temp_texture->loadFromFile("resources/player_life.png"))
+	{
+		std::cout << "ERROR" << std::endl;
+		correct_init = false;
+	}
+	else
+	{
+		textures.emplace("player_life_sprite", temp_texture);
+	}
+	
 	temp_texture = nullptr;
 	return correct_init;
 }

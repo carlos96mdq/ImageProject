@@ -19,6 +19,7 @@
 #include "Butterfree.h"
 #include "EnemyBullet.h"
 #include "Boss.h"
+#include "Life.h"
 
 class Game
 {
