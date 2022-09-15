@@ -25,7 +25,12 @@ class Game
 private:
 	sf::RenderWindow window;
 	unsigned int score;
+	int lives;
 	bool need_background_flag;
+	bool player_died_flag;
+	bool game_over_flag;
+	int level_index;
+	bool level_changed_flag;
 	void process_input();
 	void update(float delta_time);
 	void shooting_events();

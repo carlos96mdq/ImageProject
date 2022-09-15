@@ -27,7 +27,7 @@ std::queue<NewEnemyData*> SpawnManager::get_enemies()
 
 // Constructor
 SpawnManager::SpawnManager()
-: enemy_spawn_timer(0.0), enemy_spawner_flag(false), level_index(1), level_counter(0), last_spawn(false)
+: enemy_spawn_timer(0.0), enemy_spawner_flag(false), level_index(0), level_counter(0), last_spawn(false)
 {}
 
 // Spawns enemies depending of game time, level and a random factor
@@ -138,4 +138,10 @@ void SpawnManager::clear_enemies()
 		delete enemies_to_spawn.front();
 		enemies_to_spawn.pop();
 	}
+}
+
+// Reset all tiemers, mostly when passing levels
+void SpawnManager::clear_timers()
+{
+	enemy_spawn_timer = 0.0;
 }

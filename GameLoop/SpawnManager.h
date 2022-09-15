@@ -35,8 +35,10 @@ public:
 	static SpawnManager* get_instance();
 	static std::queue<NewEnemyData*> get_enemies();
 	void update(float delta_time);
-	void enemy_already_spawned() {enemy_spawner_flag = false;};
+	void enemy_already_spawned() { enemy_spawner_flag = false; };
+	void set_level(unsigned int new_level) { level_index = new_level; };
 	const bool get_enemy_spawner_flag() const {return enemy_spawner_flag;};
 	void clear_enemies();
+	void clear_timers();
 };
 
