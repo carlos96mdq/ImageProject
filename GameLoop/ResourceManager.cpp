@@ -32,7 +32,7 @@ bool ResourceManager::load_textures()
 	sf::Texture* temp_texture {};
 
 	temp_texture = new sf::Texture;
-	if (!temp_texture->loadFromFile("resources/player.png"))
+	if (!temp_texture->loadFromFile("resources/player_sprite.png"))
 	{
 		std::cout << "ERROR" << std::endl;
 		correct_init = false;
@@ -43,7 +43,7 @@ bool ResourceManager::load_textures()
 	}
 	
 	temp_texture = new sf::Texture;
-	if (!temp_texture->loadFromFile("resources/player_bullet.jpg"))
+	if (!temp_texture->loadFromFile("resources/thunderbolt_sprite.png"))
 	{
 		std::cout << "ERROR" << std::endl;
 		correct_init = false;

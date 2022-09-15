@@ -13,7 +13,8 @@ Background::Background(sf::Texture* texture, sf::Vector2f position)
 	speed = 50;
 	direction = DIRECTIONS[DOWN];
 	set_sprite(texture);
-	sprite_scale_factor = 1.08;
+	// sprite_scale_factor = 1.08;
+	sprite_scale_factor = 0.835;
 	set_scale(sprite_scale_factor);
 	// Sprite::set_position(0,0);
 	set_position(position);
