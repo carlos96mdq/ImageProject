@@ -84,6 +84,9 @@ void Game::update(float delta_time)
 			EntityManager::get_instance()->add_entity(new Life(ResourceManager::get_instance()->get_texture("player_life_sprite"), sf::Vector2f(counter * 40, WINDOW_HEIGHT - 50)));
 			counter++;
 		}
+
+		// Set score in GUI
+		EntityManager::get_instance()->add_entity(new Score(ResourceManager::get_instance()->get_font("arial_font"), score, sf::Vector2f(20, 20)));
 	}
 	
 	if (level_index > 0)
@@ -102,6 +105,7 @@ void Game::update(float delta_time)
 		{
 			bool flag;
 			flag = entity->update(delta_time);
+
 			// Some entities returned an active flag
 			if (flag)
 			{
@@ -116,6 +120,14 @@ void Game::update(float delta_time)
 						break;
 				}
 			}
+
+			// The score needs to be updated
+			if (score_changed_flag && dynamic_cast<Score*>(entity))
+			{
+				dynamic_cast<Score*>(entity)->set_score(score);
+				score_changed_flag = false;
+			}
+			
 		}
 	}
 }
@@ -260,6 +272,7 @@ void Game::collision_events()
 									default:
 										break;
 								}
+								score_changed_flag = true;
 							}
 							else if	(col_entity->get_type() == EntityType::PLAYER
 									&& dynamic_cast<Sprite*>(col_entity)->get_sprite_rect().intersects(my_rect))
@@ -339,6 +352,7 @@ void Game::collision_events()
 								{
 									entity->kill_entity();
 									score += 20;
+									score_changed_flag = true;
 								}
 							}
 						}
@@ -454,10 +468,31 @@ void Game::render()
 		}
 	}
 
+	// Draw GUI elements
+	for (Entity* const& entity : EntityManager::get_entities())
+	{
+		if (entity->is_active() && entity->get_type() == EntityType::GUI)
+		{
+			Sprite* sprite = dynamic_cast<Sprite*>(entity);
+			if (sprite != nullptr)
+			{
+				sprite->draw(&window);
+			}
+			else
+			{
+				Text* text = dynamic_cast<Text*>(entity);
+				if (text != nullptr)
+				{
+					text->draw(&window);
+				}
+			}
+		}
+	}
+
 	// Draw all left sprites
 	for (Entity* const& entity : EntityManager::get_entities())
 	{
-		if (entity->is_active() && entity->get_type() != EntityType::BACKGROUND)
+		if (entity->is_active() && entity->get_type() != EntityType::BACKGROUND && entity->get_type() != EntityType::GUI)
 		{
 			Sprite* sprite = dynamic_cast<Sprite*>(entity);
 			if (sprite != nullptr)
@@ -482,22 +517,23 @@ void Game::init()
 	// Initialize score and lives
 	score = 0;
 	lives = 3;
-	PRINT(score)
 
 	// Initialize flags
 	player_died_flag = false;
 	game_over_flag = false;
+	score_changed_flag = false;
+	need_background_flag = false;
 
 	// Set level 0 (main menu)
 	level_index = 0;
 	level_changed_flag = false;
-	need_background_flag = false;
 
 	// Create game window
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
 
-	// Load all game textures
+	// Load all game resources
 	resource_manager->load_textures();
+	resource_manager->load_fonts();
 }
 
 // Main gameloop
@@ -523,4 +559,5 @@ void Game::loop()
 void Game::stop()
 {
 	EntityManager::get_instance()->clear();
+	ResourceManager::get_instance()->clear();
 }

@@ -1,17 +1,18 @@
 /***************************************************************************************************************************/
-/* Life.h
-/* Player lives sprite. This class does not save the player's lives data, but the player's lives sprites to show on screen
+/* Score.h
+/* Player score text. This class does not save the player's score data, but the player's score text to show on screen
 /***************************************************************************************************************************/
 
 #pragma once
 
-#include "Sprite.h"
+#include "Text.h"
 
-class Life : public Sprite
+class Score : public Text
 {
 public:
-	Life(sf::Texture* texture, sf::Vector2f position);
-	~Life() { PRINT("Life destructor") };
+	Score(sf::Font* font, unsigned int score, sf::Vector2f position);
+	~Score() { PRINT("Score destructor") };
 	virtual bool update(float delta_time) override { return false; };
+	void set_score(unsigned int new_score);
 };
 

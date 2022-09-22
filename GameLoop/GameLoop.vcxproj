@@ -146,10 +146,12 @@
     <ClCompile Include="Pidgey.cpp" />
     <ClCompile Include="PlayerBullet.cpp" />
     <ClCompile Include="ResourceManager.cpp" />
+    <ClCompile Include="Score.cpp" />
     <ClCompile Include="Shooter.cpp" />
     <ClCompile Include="SpawnManager.cpp" />
     <ClCompile Include="Sprite.cpp" />
     <ClCompile Include="Player.cpp" />
+    <ClCompile Include="Text.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="Background.h" />
@@ -168,10 +170,12 @@
     <ClInclude Include="Pidgey.h" />
     <ClInclude Include="PlayerBullet.h" />
     <ClInclude Include="ResourceManager.h" />
+    <ClInclude Include="Score.h" />
     <ClInclude Include="Shooter.h" />
     <ClInclude Include="SpawnManager.h" />
     <ClInclude Include="Sprite.h" />
     <ClInclude Include="Player.h" />
+    <ClInclude Include="Text.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

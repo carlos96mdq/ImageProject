@@ -7,6 +7,7 @@
 // Static definitions
 ResourceManager* ResourceManager::instance = nullptr;
 std::unordered_map<std::string, sf::Texture*> ResourceManager::textures;
+std::unordered_map<std::string, sf::Font*> ResourceManager::fonts;
 
 // Singleton initialization
 ResourceManager* ResourceManager::get_instance()
@@ -24,10 +25,15 @@ std::unordered_map<std::string, sf::Texture*> ResourceManager::get_textures()
 	return textures;
 }
 
+// Get map container with all textures loaded inside
+std::unordered_map<std::string, sf::Font*> ResourceManager::get_fonts()
+{
+	return fonts;
+}
+
 // Load in graphic memory all the game textures
 bool ResourceManager::load_textures()
 {
-	// Create a texture in heap, load a texture from a file, and give a reference to that texture heap location to the map
 	bool correct_init {true};
 	sf::Texture* temp_texture {};
 
@@ -134,12 +140,41 @@ bool ResourceManager::load_textures()
 	return correct_init;
 }
 
+// Load in graphic memory all the game fonts
+bool ResourceManager::load_fonts()
+{
+	bool correct_init {true};
+	sf::Font* temp_font {};
+
+	temp_font = new sf::Font;
+	if (!temp_font->loadFromFile("resources/arial.ttf"))
+	{
+		std::cout << "ERROR" << std::endl;
+		correct_init = false;
+	}
+	else
+	{
+		fonts.emplace("arial_font", temp_font);
+	}
+	
+	temp_font = nullptr;
+	return correct_init;
+}
+
 // Cleans all texture from memory
 void ResourceManager::clear()
 {
+	// Clean textures
 	for(auto const& texture : textures)
 	{
 		delete texture.second;
 	}
 	textures.clear();
+
+	// Clean fonts
+	for(auto const& font : fonts)
+	{
+		delete font.second;
+	}
+	fonts.clear();
 }

@@ -11,7 +11,6 @@
 class Sprite : public Entity
 {
 protected:
-	sf::Texture texture;
 	sf::Sprite sprite;
 	unsigned int sprite_index;
 	float sprite_timer;

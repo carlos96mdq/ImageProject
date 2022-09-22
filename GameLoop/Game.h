@@ -20,6 +20,7 @@
 #include "EnemyBullet.h"
 #include "Boss.h"
 #include "Life.h"
+#include "Score.h"
 
 class Game
 {
@@ -28,6 +29,7 @@ private:
 	unsigned int score;
 	int lives;
 	bool need_background_flag;
+	bool score_changed_flag;
 	bool player_died_flag;
 	bool game_over_flag;
 	int level_index;

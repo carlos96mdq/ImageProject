@@ -1,16 +1,22 @@
 /***************************************************************************************************************************/
-/* Life.cpp
+/* Score.cpp
 /***************************************************************************************************************************/
 
-#include "Life.h"
+#include "Score.h"
 
 // Constructor
-Life::Life(sf::Texture* texture, sf::Vector2f position)
+Score::Score(sf::Font* font, unsigned int score, sf::Vector2f position)
 {
-	PRINT("Life constructor");
+	PRINT("Score constructor");
 	active = true;
 	type = EntityType::GUI;
-	set_sprite(texture);
-	set_scale(sprite_scale_factor);
+	set_text(font, std::to_string(score));
+	set_scale(text_scale_factor);
 	set_position(position);
+}
+
+// Set a new score text
+void Score::set_score(unsigned int new_score)
+{
+	set_string(std::to_string(new_score));
 }
