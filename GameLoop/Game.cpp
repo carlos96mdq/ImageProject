@@ -25,7 +25,7 @@ void Game::process_input()
 			// Keyboard key pressed (only one event once you press a key)
 			case sf::Event::KeyPressed:
 				// Pause key
-				if (event.key.code == sf::Keyboard::P && level_index != 0)
+				if (event.key.code == sf::Keyboard::P && level_index != 0 && !player_died_flag)
 				{
 					game_paused_flag = !game_paused_flag;
 				}
@@ -48,28 +48,56 @@ void Game::process_input()
 // Update all entities and managers, including player and enemies
 void Game::update(float delta_time)
 {
-	// If all lives are lost is game over
-	if (game_over_flag)
+	// If player die, a timer starts to give the player a smooth transition to the level reset
+	if (player_died_flag)
 	{
-		game_over_flag = false;
-		window.close();
+		player_died_timer += delta_time;
+
+		// Enemies keep moving until first timer
+		if (player_died_timer >= 3.0 && !game_paused_flag)
+		{
+			game_paused_flag = true;
+			if (game_over_flag)
+			{
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Game Over", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT / 2), 2));
+			}
+			else
+			{
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "You lose a life", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT / 2), 2));
+			}
+		}
+		// Still showing message until time limit is reached
+		else if (player_died_timer >= 6.0)
+		{
+			PRINT("Entro aqui")
+			level_changed_flag = true;
+			player_died_flag = false;
+			player_died_timer = 0.0;
+
+			// If all lives are lost is game over and go back to main menu
+			if (game_over_flag)
+			{
+				game_over_flag = false;
+				level_index = 0;
+				score = 0;
+				lives = 3;
+			}
+			
+		}
 	}
 	
 	// If a new level is loaded, some things need to be cleaned
-	if (level_changed_flag || player_died_flag)
+	if (level_changed_flag)
 	{
 		// Clear flags
 		level_changed_flag = false;
-		player_died_flag = false;
+		game_paused_flag = false;
 
 		// Clean all entities ingame and ready to spawn, and set all level things
 		SpawnManager::get_instance()->clear_timers();
 		SpawnManager::get_instance()->clear_enemies();
 		EntityManager::get_instance()->clear();
 		SpawnManager::get_instance()->set_level(level_index);
-
-		// Create player
-		EntityManager::get_instance()->add_entity(new Player(ResourceManager::get_instance()->get_texture("player_sprite"), sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)));
 		
 		// Create level scenary
 		switch (level_index)
@@ -82,57 +110,69 @@ void Game::update(float delta_time)
 				break;
 		}
 
-		// Set lives in GUI
-		int counter = 1;
-		while (counter <= lives)
+		if (level_index > 0)
 		{
-			EntityManager::get_instance()->add_entity(new Life(ResourceManager::get_instance()->get_texture("player_life_sprite"), sf::Vector2f(counter * 40, WINDOW_HEIGHT - 50)));
-			counter++;
-		}
+			// Create player
+			EntityManager::get_instance()->add_entity(new Player(ResourceManager::get_instance()->get_texture("player_sprite"), sf::Vector2f(WINDOW_WIDTH / 2, WINDOW_HEIGHT / 2)));
+		
+			// Set lives in GUI
+			int counter = 1;
+			while (counter <= lives)
+			{
+				EntityManager::get_instance()->add_entity(new Life(ResourceManager::get_instance()->get_texture("player_life_sprite"), sf::Vector2f(counter * 40, WINDOW_HEIGHT - 50)));
+				counter++;
+			}
 
-		// Set score in GUI
-		EntityManager::get_instance()->add_entity(new Score(ResourceManager::get_instance()->get_font("arial_font"), score, sf::Vector2f(20, 20)));
+			// Set score in GUI
+			EntityManager::get_instance()->add_entity(new Score(ResourceManager::get_instance()->get_font("arial_font"), score, sf::Vector2f(20, 20)));
+		}
+		
+
 	}
 	
-	if (level_index > 0)
+	// Only do these actions if the game is unpaused
+	if (!game_paused_flag)
 	{
-		// This flag needs to be put false by a background informing that it is still there to not let any black screen
-		need_background_flag = true;
-
-		// Update SpawnManager timers and events
-		SpawnManager::get_instance()->update(delta_time);
-	}
-
-	// Update all entities
-	for (Entity* const& entity: EntityManager::get_entities())
-	{
-		if (entity->is_active())
+		// Verify if a new background is needed
+		if (level_index > 0)
 		{
-			bool flag;
-			flag = entity->update(delta_time);
+			// This flag needs to be put false by a background informing that it is still there to not let any black screen
+			need_background_flag = true;
 
-			// Some entities returned an active flag
-			if (flag)
+			// Update SpawnManager timers and events
+			SpawnManager::get_instance()->update(delta_time);
+		}
+
+		// Update all entities
+		for (Entity* const& entity: EntityManager::get_entities())
+		{
+			if (entity->is_active())
 			{
-				switch (entity->get_type())
+				bool flag;
+				flag = entity->update(delta_time);
+
+				// Some entities returned an active flag
+				if (flag)
 				{
-					case EntityType::BACKGROUND:
+					switch (entity->get_type())
 					{
-						need_background_flag = false;
-						break;
+						case EntityType::BACKGROUND:
+						{
+							need_background_flag = false;
+							break;
+						}
+						default:
+							break;
 					}
-					default:
-						break;
+				}
+
+				// The score needs to be updated
+				if (score_changed_flag && dynamic_cast<Score*>(entity))
+				{
+					dynamic_cast<Score*>(entity)->set_score(score);
+					score_changed_flag = false;
 				}
 			}
-
-			// The score needs to be updated
-			if (score_changed_flag && dynamic_cast<Score*>(entity))
-			{
-				dynamic_cast<Score*>(entity)->set_score(score);
-				score_changed_flag = false;
-			}
-			
 		}
 	}
 }
@@ -473,6 +513,19 @@ void Game::render()
 		}
 	}
 
+	// Draw all players and npc sprites
+	for (Entity* const& entity : EntityManager::get_entities())
+	{
+		if (entity->is_active() && entity->get_type() != EntityType::BACKGROUND && entity->get_type() != EntityType::GUI)
+		{
+			Sprite* sprite = dynamic_cast<Sprite*>(entity);
+			if (sprite != nullptr)
+			{
+				sprite->draw(&window);
+			}
+		}
+	}
+
 	// Draw GUI elements
 	for (Entity* const& entity : EntityManager::get_entities())
 	{
@@ -493,20 +546,7 @@ void Game::render()
 			}
 		}
 	}
-
-	// Draw all left sprites
-	for (Entity* const& entity : EntityManager::get_entities())
-	{
-		if (entity->is_active() && entity->get_type() != EntityType::BACKGROUND && entity->get_type() != EntityType::GUI)
-		{
-			Sprite* sprite = dynamic_cast<Sprite*>(entity);
-			if (sprite != nullptr)
-			{
-				sprite->draw(&window);
-			}
-		}
-	}
-
+	
 	window.display();
 }
 
@@ -530,6 +570,9 @@ void Game::init()
 	score_changed_flag = false;
 	need_background_flag = false;
 
+	// Initialize timers
+	player_died_timer = 0.0;
+
 	// Set level 0 (main menu)
 	level_index = 0;
 	level_changed_flag = false;
@@ -552,10 +595,7 @@ void Game::loop()
 	{
 		sf::Time delta_time = clock.restart();
 		process_input();
-		if (!game_paused_flag)
-		{
-			update(delta_time.asSeconds());
-		}
+		update(delta_time.asSeconds());
 		shooting_events();
 		collision_events();
 		spawning_events();

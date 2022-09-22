@@ -33,8 +33,9 @@ private:
 	bool player_died_flag;
 	bool game_over_flag;
 	bool game_paused_flag;
-	int level_index;
 	bool level_changed_flag;
+	float player_died_timer;
+	int level_index;
 	void process_input();
 	void update(float delta_time);
 	void shooting_events();

@@ -5,21 +5,21 @@
 #include "Text.h"
 
 // Constructor 1
-Text::Text(sf::Font* font, std::string initial_text, sf::Vector2f position)
+Text::Text(sf::Font* font, std::string initial_text, sf::Vector2f position, float scale_factor)
 {
 	type = EntityType::GUI;
 	active = true;
-	text_scale_factor = 1;
+	text_scale_factor = scale_factor;
 	set_text(font, initial_text);
 	set_position(position);
 }
 
 // Constructor 2
-Text::Text(sf::Font* font, unsigned int initial_text, sf::Vector2f position)
+Text::Text(sf::Font* font, unsigned int initial_text, sf::Vector2f position, float scale_factor)
 {
 	type = EntityType::GUI;
 	active = true;
-	text_scale_factor = 1;
+	text_scale_factor = scale_factor;
 	set_text(font, std::to_string(initial_text));
 	set_position(position);
 }
@@ -59,12 +59,14 @@ void Text::set_string(const std::string &new_text)
 // Set text position
 void Text::set_position(sf::Vector2f new_position)
 {
+	set_origin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
 	text.setPosition(new_position);
 }
 
 // Set text position
 void Text::set_position(float new_x, float new_y)
 {
+	set_origin(text.getLocalBounds().width / 2, text.getLocalBounds().height / 2);
 	text.setPosition(new_x, new_y);
 }
 

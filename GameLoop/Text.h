@@ -17,9 +17,10 @@ protected:
 	void set_origin(float x, float y);
 	void rotate_text(float angle);
 public:
-	Text(sf::Font* font, std::string initial_text, sf::Vector2f position);
-	Text(sf::Font* font, unsigned int initial_text, sf::Vector2f position);
+	Text(sf::Font* font, std::string initial_text, sf::Vector2f position, float scale_factor=1);
+	Text(sf::Font* font, unsigned int initial_text, sf::Vector2f position, float scale_factor=1);
 	virtual ~Text() {};
+	virtual bool update(float delta_time) override { return false; };
 	void draw(sf::RenderWindow* window);
 	void set_font(const sf::Font &font);
 	void set_string(const std::string &new_text);
