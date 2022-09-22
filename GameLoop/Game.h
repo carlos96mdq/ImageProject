@@ -32,6 +32,7 @@ private:
 	bool score_changed_flag;
 	bool player_died_flag;
 	bool game_over_flag;
+	bool game_paused_flag;
 	int level_index;
 	bool level_changed_flag;
 	void process_input();

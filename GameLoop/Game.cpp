@@ -17,18 +17,23 @@ void Game::process_input()
 		// Handle the event
 		switch (event.type)
 		{
+			// Close window button clicked with mouse
 			case sf::Event::Closed:
 				window.close();
+				break;
+			
+			// Keyboard key pressed (only one event once you press a key)
+			case sf::Event::KeyPressed:
+				// Pause key
+				if (event.key.code == sf::Keyboard::P && level_index != 0)
+				{
+					game_paused_flag = !game_paused_flag;
+				}
 				break;
 			
 			default:
 				break;
 		}
-	}
-
-	// Pause key
-	if (sf::Keyboard::isKeyPressed(sf::Keyboard::P))
-	{
 	}
 
 	// Start game
@@ -521,6 +526,7 @@ void Game::init()
 	// Initialize flags
 	player_died_flag = false;
 	game_over_flag = false;
+	game_paused_flag = false;
 	score_changed_flag = false;
 	need_background_flag = false;
 
@@ -546,7 +552,10 @@ void Game::loop()
 	{
 		sf::Time delta_time = clock.restart();
 		process_input();
-		update(delta_time.asSeconds());
+		if (!game_paused_flag)
+		{
+			update(delta_time.asSeconds());
+		}
 		shooting_events();
 		collision_events();
 		spawning_events();
