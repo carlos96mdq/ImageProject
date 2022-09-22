@@ -4,10 +4,29 @@
 
 #include "Text.h"
 
+// Constructor 1
+Text::Text(sf::Font* font, std::string initial_text, sf::Vector2f position)
+{
+	type = EntityType::GUI;
+	active = true;
+	text_scale_factor = 1;
+	set_text(font, initial_text);
+	set_position(position);
+}
+
+// Constructor 2
+Text::Text(sf::Font* font, unsigned int initial_text, sf::Vector2f position)
+{
+	type = EntityType::GUI;
+	active = true;
+	text_scale_factor = 1;
+	set_text(font, std::to_string(initial_text));
+	set_position(position);
+}
+
 // Set the text font and size
 void Text::set_text(sf::Font* font, std::string string_text)
 {
-	text_scale_factor = 1;
 	set_font(*font);
 	set_string(string_text);
 	set_scale(text_scale_factor);
