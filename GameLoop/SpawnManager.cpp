@@ -144,4 +144,6 @@ void SpawnManager::clear_enemies()
 void SpawnManager::clear_timers()
 {
 	enemy_spawn_timer = 0.0;
+	level_counter = 0;
+	last_spawn = false;
 }
