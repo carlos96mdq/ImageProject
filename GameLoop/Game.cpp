@@ -82,7 +82,6 @@ void Game::update(float delta_time)
 				score = 0;
 				lives = 3;
 			}
-			
 		}
 	}
 	
@@ -102,6 +101,9 @@ void Game::update(float delta_time)
 		// Create level scenary
 		switch (level_index)
 		{
+			case 0:
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Press Enter to start!", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT / 2), 2));
+				break;
 			case 1:
 				EntityManager::get_instance()->add_entity(new Background(ResourceManager::get_instance()->get_texture("viridian_forest_sprite"), sf::Vector2f(0, WINDOW_HEIGHT)));
 				break;
@@ -126,8 +128,6 @@ void Game::update(float delta_time)
 			// Set score in GUI
 			EntityManager::get_instance()->add_entity(new Score(ResourceManager::get_instance()->get_font("arial_font"), score, sf::Vector2f(20, 20)));
 		}
-		
-
 	}
 	
 	// Only do these actions if the game is unpaused
@@ -575,7 +575,7 @@ void Game::init()
 
 	// Set level 0 (main menu)
 	level_index = 0;
-	level_changed_flag = false;
+	level_changed_flag = true;
 
 	// Create game window
 	window.create(sf::VideoMode(WINDOW_WIDTH, WINDOW_HEIGHT), "Pokemon Dungeon");
