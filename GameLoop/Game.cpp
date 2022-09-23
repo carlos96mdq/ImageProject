@@ -104,9 +104,10 @@ void Game::update(float delta_time)
 		switch (level_index)
 		{
 			case 0:
-				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Press Enter to start!", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT / 2), 2));
-				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Use w,a,s,d to move", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.4), 1.5));
-				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Use k to attack and p to pause", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.35), 1.5));
+				EntityManager::get_instance()->add_entity(new Life(ResourceManager::get_instance()->get_texture("main_menu_sprite"), sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH * 0.8, 0)));
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Press Enter to start!", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.3), 2));
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Use w,a,s,d to move", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.2), 1.5));
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Use k to attack and p to pause", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.15), 1.5));
 				break;
 
 			case 1:
