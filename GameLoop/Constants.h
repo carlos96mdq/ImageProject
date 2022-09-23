@@ -6,6 +6,7 @@
 #pragma once
 
 #include <SFML/Graphics.hpp>
+#include <SFML/Audio.hpp>
 #include <queue>
 #include <list>
 #include <iostream>

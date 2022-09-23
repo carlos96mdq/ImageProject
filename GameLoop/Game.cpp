@@ -69,7 +69,6 @@ void Game::update(float delta_time)
 		// Still showing message until time limit is reached
 		else if (player_died_timer >= 6.0)
 		{
-			PRINT("Entro aqui")
 			level_changed_flag = true;
 			player_died_flag = false;
 			player_died_timer = 0.0;
@@ -97,15 +96,22 @@ void Game::update(float delta_time)
 		SpawnManager::get_instance()->clear_enemies();
 		EntityManager::get_instance()->clear();
 		SpawnManager::get_instance()->set_level(level_index);
+
+		// Stop playing the game music
+		ResourceManager::get_instance()->get_music("main_music")->stop();
 		
 		// Create level scenary
 		switch (level_index)
 		{
 			case 0:
 				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Press Enter to start!", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT / 2), 2));
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Use w,a,s,d to move", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.4), 1.5));
+				EntityManager::get_instance()->add_entity(new Text(ResourceManager::get_instance()->get_font("arial_font"), "Use k to attack and p to pause", sf::Vector2f(WINDOW_WIDTH - WINDOW_WIDTH / 2, WINDOW_HEIGHT - WINDOW_HEIGHT * 0.35), 1.5));
 				break;
+
 			case 1:
 				EntityManager::get_instance()->add_entity(new Background(ResourceManager::get_instance()->get_texture("viridian_forest_sprite"), sf::Vector2f(0, WINDOW_HEIGHT)));
+				ResourceManager::get_instance()->get_music("main_music")->play();
 				break;
 			
 			default:
@@ -583,6 +589,7 @@ void Game::init()
 	// Load all game resources
 	resource_manager->load_textures();
 	resource_manager->load_fonts();
+	resource_manager->load_musics();
 }
 
 // Main gameloop

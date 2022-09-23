@@ -5,8 +5,6 @@
 
 #pragma once
 
-#include <iostream>
-#include <list>
 #include "Constants.h"
 #include "EntityManager.h"
 #include "ResourceManager.h"
